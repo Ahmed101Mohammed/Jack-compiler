@@ -58,7 +58,7 @@ public class KeywordToken extends Token
 
     @Override
     public String generateXMLCode() {
-        String xmlCode = "<keyword> " + this.tokenBody + " </keyword>";
+        String xmlCode = "<keyword> " + this.getBody() + " </keyword>";
         return xmlCode;
     }
 }

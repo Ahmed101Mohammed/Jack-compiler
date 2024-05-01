@@ -31,7 +31,7 @@ public class IntegerConstantToken extends Token{
             }
             else if(integerConstant > 32767)
             {
-                Token.allTokensErrors.add(new Error("Un Supported Number", "Jack does not supported integers greated than 32767", tokenPosition));
+                Token.allTokensErrors.add(new Error("UnSupportedNumber", "Jack does not supported integers greated than 32767", tokenPosition));
                 return false;
             }
             return true;
@@ -44,7 +44,7 @@ public class IntegerConstantToken extends Token{
 
     @Override
     public String generateXMLCode() {
-        String xmlCode = "<integerConstant> " + this.tokenBody + " </integerConstant>";
+        String xmlCode = "<integerConstant> " + this.getBody() + " </integerConstant>";
         return xmlCode;
     }
     

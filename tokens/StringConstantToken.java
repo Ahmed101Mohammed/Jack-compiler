@@ -38,7 +38,7 @@ public class StringConstantToken extends Token{
     private String getStringBody()
     {
         String stringBody = "";
-        char[] string = this.tokenBody.toCharArray();
+        char[] string = this.getBody().toCharArray();
         for(int i = 1; i < string.length-1; i++)
         {
             stringBody += string[i];

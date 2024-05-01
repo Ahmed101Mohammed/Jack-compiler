@@ -55,7 +55,7 @@ public class SymbolToken extends Token{
 
     @Override
     public String generateXMLCode() {
-        String xmlCode = "<symbol> " + hashedSymbols.get(this.tokenBody) + " </symbol>";
+        String xmlCode = "<symbol> " + hashedSymbols.get(this.getBody()) + " </symbol>";
         return xmlCode;
     }
 }

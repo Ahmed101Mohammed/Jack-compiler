@@ -33,9 +33,9 @@ public class IdentifierToken extends Token
         put("_", 0);
     }};
 
-    private IdentifierToken(String token, Position tokePosition)    
+    private IdentifierToken(String token, Position position)    
     {
-        super(token, tokePosition);
+        super(token, position);
         this.setType(TokenType.Identifier);
     }
 
@@ -76,7 +76,8 @@ public class IdentifierToken extends Token
 
     public String generateXMLCode()
     {
-        String xmlCode = "<identifier> " + this.tokenBody + " </identifier>";
+        String xmlCode = "<identifier> " + this.getBody() + " </identifier>";
         return xmlCode;
     }
+
 }

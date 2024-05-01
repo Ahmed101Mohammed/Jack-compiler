@@ -21,9 +21,10 @@ public class JackTokenizer {
     public JackTokenizer(File file)
     {
         this.file = file;
+        System.out.println("From constructor of JackTokenizer: "+this.file.getName());
         try
         {
-            this.fileReader = new BufferedReader(new FileReader(file));
+            this.fileReader = new BufferedReader(new FileReader(this.file));
         }
         catch(IOException e)
         {
@@ -183,6 +184,10 @@ public class JackTokenizer {
         {
             this.tokens.add(token);
         }
+    }
+
+    public ArrayList<Token> getTokens() {
+        return tokens;
     }
 
     private String getCharFromCharArrInStringFormat(int index, char[] chars)
