@@ -1,0 +1,113 @@
+Jack statement examples: ifStatement | whileStatement | letStatement
+statements: statement* ('*': 0 or more)
+
+ifStatemtent: 'if' '('expression')'
+				'{'statements'}'
+
+whileStatement: 'while' '('expressin')'
+					'{'statements'}'
+
+letStatement: 'let' varName(identifier) '=' expression ';' 
+
+expression: term (operator term)? ('?': o or 1)
+
+term: varName | constant
+
+varName: string not bigining with a digit.
+
+constant: a decimle number
+
+operator: '+' | '-' | '=' | '<' | '>'
+
+xml of this expressiong: count + 1
+<expression>
+	<term>
+		<identfier> count </identifier>
+	</term>
+	<symbol> + </symbol>
+	<term>
+		<integerConstant> 1 </integerConstrant>
+	</term>
+</expression>
+
+In unit 4.5 in 0:41 there are a more complex example for xml result of parsing Jack code.
+
+< ____Parser SudoCode____ >
+class CompilationEngine
+{
+	compileStatements()
+	{// code for compiling statements}
+	
+	compleIfStatement()
+	{// code for compiling if statement}
+
+	comileWhileStatement()
+	{// code for compiling an while statement}
+
+	compileLetStatement()
+	{...}
+
+	compileTerm()
+	{...}
+}
+< _______________________ >
+
+Parser work stemulation in unit 4.5 in 5:09.
+
+####4.6: More datail in Jack grammer####
+=> Jack Grammer: program structure
+-> Jack program is a collection of classes.
+-> Each class apearing in seperate file.
+-> Each file compiles seprately.
+-> class structure:
+	'class' className '{' classVarDec* subroutineDec* '}'
+-> classVarDec structure:
+	('static'|'field') type varName (',' varName)* ';'
+-> type structure: 'int'|'char'|'boolean'|className
+-> subroutineDec structure:
+	('constructor'|'function'|'method') ('void'|type) subroutineName '('parameterList')' subroutineBody
+-> parameterList structure: ((type varName) (',' type varName)*)?
+-> SubroutineBody structure: '{'varDec* statements'}'
+-> varDec structure: 'var' type varName (',' varName)*;
+-> className: identfire;
+-> subroutineName: identifire;
+-> varName: identifire;
+
+=> Jack Grammer: jack program include statements as follow:
+-> statements structure: statement*
+-> statement: letStatement|ifStatement|whileStatement|doStatement|returnStatement
+-> letStatement Structure: 	'let' varName('['experession']')? '=' expression';'
+-> ifStatement structure: 'if '('expression')''{'statements'}' ('else''{'statements'}')?
+-> whileStatement structure: 'while' '('expression')' '{'statements'}' 
+-> doStatement structure: 'do' subroutineCall';'
+-> returnStatement structure: 'return' expression?';'
+
+=> Jack Grammer: jack program include expressions as follow:
+-> expression structure: term (operation term)?
+-> term: integerConstant|stringConstant|keywordConstant|varName|varName'['expression']'|subroutineCall|
+			'('expression')'|unaryOperation term
+-> subroutineCall structure: subroutineName'('expressionList')'|
+							(className|varName)'.'subroutineName'('expressionList')'
+-> expressionList structure: (expression(','expression)*)?
+-> operation: '+'|'-'|'*'|'/'|'&'|'|'|'>'|'='|'<'
+-> unaryOperation: '~'|'-'
+-> keywordConstant: 'true'|'false'|'this'|'null'
+
+<_____________>
+There is an more complex example of xml code resulting from the parser in unit 4.7 in 3:35
+The non-terminal tags you can use in xml code:
+- class
+- classVarDec
+- subroutineDec
+- parameterList
+- subroutineBody
+- varDec
+- statements
+- letStatement
+ ifStatement
+- whileStatement
+- doStatement
+- returnStatement
+- expression
+- term
+- expressionList 
