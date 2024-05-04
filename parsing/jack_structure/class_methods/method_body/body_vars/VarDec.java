@@ -16,9 +16,24 @@ public class VarDec extends JackCommand
         while (this.thereIsVarKeyWord()) 
         {
             VarDec_C newOne = new VarDec_C(this);
-            vars.add(newOne);     
-            // if needed to review added to compilationEngine.someArrayList.add(newOne)
+            vars.add(newOne); 
+            if(newOne.isNeededReview())
+            {
+                CompilationEngine.neededReviewVarDec.add(newOne);
+            }    
         }
+    }
+
+    public boolean isVarDublicatedInSubRoutineBody(Token token)
+    {
+        for(VarDec_C varDec:this.getVars())
+        {
+            if(varDec.isVarDublicatedInVarStatement(token))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean thereIsVarKeyWord()
@@ -30,5 +45,9 @@ public class VarDec extends JackCommand
         }
         CompilationEngine.decrementCurrentIndexByOne();
         return false;
+    }
+
+    public ArrayList<VarDec_C> getVars() {
+        return vars;
     }
 }

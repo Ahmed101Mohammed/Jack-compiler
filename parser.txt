@@ -50,7 +50,7 @@ class CompilationEngine
 	compileTerm()
 	{...}
 }
-< _______________________ >
+< _______________________ > 
 
 Parser work stemulation in unit 4.5 in 5:09.
 
@@ -76,14 +76,14 @@ Parser work stemulation in unit 4.5 in 5:09.
 => Jack Grammer: jack program include statements as follow:
 -> statements structure: statement*
 -> statement: letStatement|ifStatement|whileStatement|doStatement|returnStatement
--> letStatement Structure: 	'let' varName('['experession']')? '=' expression';'
+-> letStatement Structure: 	'let' varName('['expression']')? '=' expression';'
 -> ifStatement structure: 'if '('expression')''{'statements'}' ('else''{'statements'}')?
 -> whileStatement structure: 'while' '('expression')' '{'statements'}' 
 -> doStatement structure: 'do' subroutineCall';'
 -> returnStatement structure: 'return' expression?';'
 
 => Jack Grammer: jack program include expressions as follow:
--> expression structure: term (operation term)?
+-> expression structure: term (operation term)* |Another translation: expression structure: term (operation expression)*
 -> term: integerConstant|stringConstant|keywordConstant|varName|varName'['expression']'|subroutineCall|
 			'('expression')'|unaryOperation term
 -> subroutineCall structure: subroutineName'('expressionList')'|
@@ -104,7 +104,7 @@ The non-terminal tags you can use in xml code:
 - varDec
 - statements
 - letStatement
- ifStatement
+- ifStatement
 - whileStatement
 - doStatement
 - returnStatement

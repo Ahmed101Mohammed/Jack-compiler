@@ -19,12 +19,12 @@ public class SubRoutineDec_C extends JackCommand
     private SymbolToken rightParenthes;
     // private SubRoutineBody subRoutineBody;
     // Other members
-    private SubRoutineDec parent;
+    static public SubRoutineDec subRoutineDecParent;
     private boolean isCompletedStructure = false;
 
     public SubRoutineDec_C(SubRoutineDec src)
     {
-        this.parent = src;
+        subRoutineDecParent = src;
         this.getSubRoutineKind();   
         if(this.subRoutineKind != null)
         {
@@ -76,7 +76,7 @@ public class SubRoutineDec_C extends JackCommand
     private void getSubRoutineName()
     {
         Token token = CompilationEngine.advance();
-        if(token.getType() == TokenType.Identifier && !this.isDublicatedName(token))
+        if(token.getType() == TokenType.Identifier && !subRoutineDecParent.isDublicatedSubRoutineName(token))
         {
             IdentifierToken name = IdentifierToken.createIdentifierToken(token.getBody(), token.getPosition());
             this.subRoutineName = name;
@@ -89,18 +89,6 @@ public class SubRoutineDec_C extends JackCommand
                                     token.getPosition()));
             System.out.println("Faile: Check subroutine name.");
         }
-    }
-
-    private boolean isDublicatedName(Token token)
-    {
-        for(SubRoutineDec_C sub:this.parent.subRutines)
-        {
-            if(sub.getPureName().equals(token.getBody()))
-            {
-                return true;
-            }
-        }
-        return false;
     }
     
     private void getSubRoutineKind()

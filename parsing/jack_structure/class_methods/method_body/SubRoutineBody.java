@@ -3,12 +3,13 @@ package parsing.jack_structure.class_methods.method_body;
 import helperClasses.Error;
 import parsing.CompilationEngine;
 import parsing.JackCommand;
+import parsing.jack_structure.class_methods.method_body.body_statements.Statements;
 import parsing.jack_structure.class_methods.method_body.body_vars.VarDec;
 import tokens.SymbolToken;
 import tokens.Token;
 import tokens.TokenType;
 
-public class SubRoutineBody extends JackCommand
+public class SubRoutineBody extends JackCommand 
 {
     private SymbolToken LeftCurlyBracket;
     private VarDec varDec;
@@ -18,7 +19,7 @@ public class SubRoutineBody extends JackCommand
     public SubRoutineBody()
     {
         this.getLeftCurlyBracket();
-        // Get vars
+        this.varDec = new VarDec();
         // Get statements
         this.getRightCurlyBracket();
     }

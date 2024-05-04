@@ -3,13 +3,18 @@ package parsing.jack_structure.class_methods;
 import java.util.ArrayList;
 
 import parsing.JackCommand;
+import parsing.jack_structure.class_vars.ClassVarDec;
+import tokens.Token;
 
 public class SubRoutineDec extends JackCommand
 {
-    public ArrayList<SubRoutineDec_C> subRutines = new ArrayList<>();
+    private ArrayList<SubRoutineDec_C> subRutines = new ArrayList<>();
+    // class vars
+    static public ClassVarDec classVars;
 
-    public SubRoutineDec()
+    public SubRoutineDec(ClassVarDec classVars)    
     {
+        this.classVars = classVars;
         while (true) 
         {
             SubRoutineDec_C oneRoutine = new SubRoutineDec_C(this);
@@ -21,4 +26,19 @@ public class SubRoutineDec extends JackCommand
         }
     }
     
+    public boolean isDublicatedSubRoutineName(Token token)
+    {
+        for(SubRoutineDec_C sub: subRutines)
+        {
+            if(sub.getPureName().equals(token.getBody()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<SubRoutineDec_C> getSubRutines() {
+        return subRutines;
+    }
 }

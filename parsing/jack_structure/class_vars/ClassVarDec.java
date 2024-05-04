@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import parsing.CompilationEngine;
 import parsing.JackCommand;
+import tokens.IdentifierToken;
 
 public class ClassVarDec extends JackCommand{
     private ArrayList<ClassVarDec_C> vars = new ArrayList<>();
@@ -28,6 +29,21 @@ public class ClassVarDec extends JackCommand{
         }
     }
 
+    public boolean isNameDublicateeInClassScope(String varName)
+    {
+        for(ClassVarDec_C var:this.getVars())
+        {
+            for(IdentifierToken varNamePreDefine:var.getVariablesNames())
+            {
+                if(varNamePreDefine.getBody().equals(varName))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
     public ArrayList<ClassVarDec_C> getVars() {
         return vars;
     }

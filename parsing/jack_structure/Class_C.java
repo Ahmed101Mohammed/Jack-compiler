@@ -6,6 +6,7 @@ import helperClasses.Error;
 import parsing.CompilationEngine;
 import parsing.JackCommand;
 import parsing.jack_structure.class_methods.SubRoutineDec;
+import parsing.jack_structure.class_methods.SubRoutineDec_C;
 import parsing.jack_structure.class_vars.ClassVarDec;
 import tokens.IdentifierToken;
 import tokens.KeywordToken;
@@ -22,6 +23,7 @@ public class Class_C extends JackCommand
 	private SubRoutineDec subRoutineDec;  
 	private Token RightCurlyBracket;
 	public static ArrayList<IdentifierToken> classesNames = new ArrayList<>();
+	public static ArrayList<Class_C> classes = new ArrayList<>();
 
 	public Class_C()
 	{
@@ -29,9 +31,41 @@ public class Class_C extends JackCommand
 		this.getClassName();
 		this.getLeftCurlyBracket();
 		this.classVarDec = new ClassVarDec();
-		this.subRoutineDec = new SubRoutineDec();
+		this.subRoutineDec = new SubRoutineDec(this.classVarDec);
 		this.getRightCurlyBracket();
-		
+		if(this.RightCurlyBracket != null)
+		{
+			classes.add(this);
+		}
+	}
+
+	public boolean isContainMethod(IdentifierToken token)
+	{
+		for(SubRoutineDec_C subRoutine: this.subRoutineDec.getSubRutines())
+		{
+			if(subRoutine.getPureName().equals(token.getBody()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static Class_C getClassByName(IdentifierToken token)
+	{
+		for(Class_C class_C: classes)
+		{
+			if(class_C.getPureName().equals(token.getBody()))
+			{
+				return class_C;
+			}
+		}
+		return null;
+	}
+
+	public String getPureName()
+	{
+		return this.className.getBody();
 	}
 
 	public void getClassKeyword()

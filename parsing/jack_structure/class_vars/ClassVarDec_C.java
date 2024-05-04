@@ -81,7 +81,7 @@ public class ClassVarDec_C extends JackCommand{
     public void getVariableName()
     {
         Token token = CompilationEngine.advance();
-        if(token.getType() == TokenType.Identifier && !isNameDublicateInDecScope(token.getBody()) && !isNameDublicateeInClassScope(token.getBody()))
+        if(token.getType() == TokenType.Identifier && !isNameDublicateInDecScope(token.getBody()) && !this.parent.isNameDublicateeInClassScope(token.getBody()))
         {
             IdentifierToken varible = IdentifierToken.createIdentifierToken(token.getBody(), token.getPosition());
             this.variablesNames.add(varible);
@@ -107,23 +107,7 @@ public class ClassVarDec_C extends JackCommand{
         }
         return false;
     }
-
-    private boolean isNameDublicateeInClassScope(String varName)
-    {
-        for(ClassVarDec_C var:this.parent.getVars())
-        {
-            for(IdentifierToken varNamePreDefine:var.getVariablesNames())
-            {
-                if(varNamePreDefine.getBody().equals(varName))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
+    
     private void getVariableScope()
     {
         Token token = CompilationEngine.advance();

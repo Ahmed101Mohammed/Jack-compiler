@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import helperClasses.Error;
 import parsing.jack_structure.Class_C;
+import parsing.jack_structure.class_methods.method_body.body_vars.VarDec_C;
 import parsing.jack_structure.class_methods.method_parameter.Parameter_C;
 import parsing.jack_structure.class_vars.ClassVarDec_C;
 import tokens.Token;
@@ -13,6 +14,7 @@ public class CompilationEngine
 	public static ArrayList<Token> programTokens = new ArrayList<>();
 	public static ArrayList<ClassVarDec_C> neededReviewForIdentfierType = new ArrayList<>();
 	public static ArrayList<Parameter_C> neededReviewParameter = new ArrayList<>();
+	public static ArrayList<VarDec_C> neededReviewVarDec = new ArrayList<>();
 	public static int currentIndex;
 	private Class_C program;
 	public CompilationEngine(ArrayList<Token> tokens)
@@ -25,6 +27,7 @@ public class CompilationEngine
 	public static Token advance()
 	{
 		currentIndex += 1;
+		if(currentIndex > programTokens.size()-1){return null;}
 		return programTokens.get(currentIndex);
 	}
 
@@ -40,6 +43,10 @@ public class CompilationEngine
 
 	public static Token getSpecificToken(int index)
 	{
+		if(index < 0 || index > programTokens.size()-1)
+		{
+			return null;
+		}
 		return programTokens.get(index);
 	}
 

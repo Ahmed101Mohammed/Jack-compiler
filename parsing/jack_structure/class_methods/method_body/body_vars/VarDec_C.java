@@ -29,17 +29,48 @@ public class VarDec_C extends JackCommand
         this.getVarKeyWord();
         this.type = new parsing.jack_structure.Type();
         this.getVarsNames();
+        this.getSemiColon();
     }
 
-    private void getVarsNames()
+    private void getSemiColon()
     {
-        this.getVarName();
+        Token token = CompilationEngine.advance();
+        if(token.getType() == TokenType.Symbol && token.getBody().equals(";"))
+        {
+            SymbolToken semiColon = SymbolToken.createSymbolToken(token.getBody(), token.getPosition());
+            this.semiColon = semiColon;
+            System.out.println("Success: Check semicolon.");
+        }
+        else
+        {
+            Token.allTokensErrors.add(new Error("UnExpectedToken", 
+            CompilationEngine.expectedRatharThanErrorMessage("';' Symbol Token", token.getBody()), token.getPosition()));
+            System.out.println("Failed: Check semicolon.");
+        }
+    }
+    private void getVarsNames()
+    {  
+        do
+        {
+            this.getVarName();
+        }while(this.isThereAVariable());
+    }
+
+    private boolean isThereAVariable()
+    {
+        Token token = CompilationEngine.advance();
+        if(token.getType() == TokenType.Symbol && token.getBody().equals(","))
+        {
+            return true;
+        }
+        CompilationEngine.decrementCurrentIndexByOne();
+        return false;
     }
 
     private void getVarName()
     {
         Token token = CompilationEngine.advance();
-        if(token.getType() == TokenType.Identifier && !this.isVarDublicated())
+        if(token.getType() == TokenType.Identifier && !this.isVarDublicated(token))
         {
             IdentifierToken varName = IdentifierToken.createIdentifierToken(token.getBody(), token.getPosition());
             this.varsNames.add(varName);
@@ -49,15 +80,31 @@ public class VarDec_C extends JackCommand
         {
             Token.allTokensErrors.add(new Error("InvalidVariable", 
                                         token.getBody() + "is not a valid variable in jack, your variable should be not dublicated in name and be identifier token.",
-                                        token.getPosition());
+                                        token.getPosition()));
             System.out.println("Faile: Check variable name.");
         }
     }
 
-    private boolean isVarDublicated()
+    private boolean isVarDublicated(Token token)
     {
-        
+        if(this.isVarDublicatedInVarStatement(token) || this.parent.isVarDublicatedInSubRoutineBody(token))
+        {
+            return true;
+        }
+        return false;
     }
+
+    public boolean isVarDublicatedInVarStatement(Token token)
+    {
+        String varName = token.getBody();
+        for(IdentifierToken var:varsNames)
+        {
+            if(var.getBody().equals(varName)){return true;}
+        }
+        return false;        
+    }
+
+    
 
     public void getVarKeyWord()
     {
@@ -70,6 +117,10 @@ public class VarDec_C extends JackCommand
         }
     }
 
+    public boolean isNeededReview()
+    {
+        return (this.type.getTokenType() == TokenType.Identifier);
+    }
 
     
 }
