@@ -3,6 +3,7 @@ package parsing.jack_structure.class_methods;
 import helperClasses.Error;
 import parsing.CompilationEngine;
 import parsing.JackCommand;
+import parsing.jack_structure.class_methods.method_body.SubRoutineBody;
 import parsing.jack_structure.class_methods.method_parameter.ParameterList;
 import tokens.IdentifierToken;
 import tokens.SymbolToken;
@@ -12,19 +13,20 @@ import tokens.TokenType;
 public class SubRoutineDec_C extends JackCommand
 {
     private SubRoutineKind subRoutineKind = null;
+    private Token subRoutineKindToken; // not part of the structure.
     private SubRoutineType type;   
     private IdentifierToken subRoutineName;
     private SymbolToken leftParenthes;
     private ParameterList parameterList;
     private SymbolToken rightParenthes;
-    // private SubRoutineBody subRoutineBody;
+    private SubRoutineBody subRoutineBody;
     // Other members
     static public SubRoutineDec subRoutineDecParent;
     private boolean isCompletedStructure = false;
 
     public SubRoutineDec_C(SubRoutineDec src)
     {
-        subRoutineDecParent = src;
+        this.subRoutineDecParent = src;
         this.getSubRoutineKind();   
         if(this.subRoutineKind != null)
         {
@@ -33,8 +35,21 @@ public class SubRoutineDec_C extends JackCommand
             this.getLeftParenthes();
             this.parameterList = new ParameterList();
             this.getRightParenthes();
-            // get subroutine body
+            this.subRoutineBody = new SubRoutineBody(parameterList);
+            this.isCompletedStructure = true;
         }
+    }
+
+    public String generateXMlCode()
+    {
+        String xmlCode = this.subRoutineKindToken.generateXMLCode() + "\n";
+        xmlCode += this.type.generateXMLCode() + "\n";
+        xmlCode += this.subRoutineName.generateXMLCode() + "\n";
+        xmlCode += this.leftParenthes.generateXMLCode() + "\n";
+        xmlCode += this.parameterList.generateXMLCode() + "\n";
+        xmlCode += this.rightParenthes.generateXMLCode() + "\n";
+        xmlCode += this.subRoutineBody.generateXMLCode();
+        return xmlCode;
     }
 
     private void getLeftParenthes()
@@ -98,7 +113,12 @@ public class SubRoutineDec_C extends JackCommand
         if(token.getType() == TokenType.Keyword && subRoutineKind != null)
         {
             this.subRoutineKind = subRoutineKind;
+            this.subRoutineKindToken = token;
             System.out.println("Success: Check subroutine kind.");
+        }
+        else
+        {
+            CompilationEngine.decrementCurrentIndexByOne();
         }
     }
 

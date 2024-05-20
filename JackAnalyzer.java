@@ -9,6 +9,7 @@ import tokens.Token;
 class JackAnalyzer
 {
 	public static String relativeProjectRoot;
+    // ./test-workspace/Main.jack
     public static void main(String[] args) {
         ArrayList<File> neededCompileFiles = getNeededToCompileFiles();
         printNamesOfListOfFiles(neededCompileFiles);
@@ -32,7 +33,9 @@ class JackAnalyzer
         for(JackTokenizer tokenizedFile:tokenizedFiles)
         {
             System.out.println("- Parse: " + tokenizedFile.file.getName() + " file.");
-            CompilationEngine CE = new CompilationEngine(tokenizedFile.getTokens());
+            CompilationEngine CE = new CompilationEngine(tokenizedFile.getTokens(), 
+                                        relativeProjectRoot, 
+                                        tokenizedFile.getFile());
             commands.add(CE.getProgram());
         }
         System.out.println("---Parsing End---");

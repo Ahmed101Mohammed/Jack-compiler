@@ -77,7 +77,7 @@ Parser work stemulation in unit 4.5 in 5:09.
 -> statements structure: statement*
 -> statement: letStatement|ifStatement|whileStatement|doStatement|returnStatement
 -> letStatement Structure: 	'let' varName('['expression']')? '=' expression';'
--> ifStatement structure: 'if '('expression')''{'statements'}' ('else''{'statements'}')?
+-> ifStatement structure: 'if' '('expression')''{'statements'}' ('else''{'statements'}')?
 -> whileStatement structure: 'while' '('expression')' '{'statements'}' 
 -> doStatement structure: 'do' subroutineCall';'
 -> returnStatement structure: 'return' expression?';'

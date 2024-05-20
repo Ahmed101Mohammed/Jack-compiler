@@ -25,6 +25,15 @@ public class ArrayIndexingTerm implements Iterm
         this.getRightSquareBracket();
     }
 
+    @Override
+    public String generateXMLCode() {
+        String xmlCode = this.varName.generateXMLCode() + "\n";
+        xmlCode += this.leftSquareBracketSymbol.generateXMLCode() + "\n";
+        xmlCode += this.expression.generateXMLCode() + "\n";
+        xmlCode += this.rightSquareBracketSymbol.generateXMLCode();
+        return xmlCode;
+    }
+
     private void getRightSquareBracket()
     {
         Token token = CompilationEngine.advance();

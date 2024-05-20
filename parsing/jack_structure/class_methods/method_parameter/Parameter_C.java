@@ -22,6 +22,13 @@ public class Parameter_C extends JackCommand
         this.getName();
     }
 
+    public String generateXMLCode()
+    {
+        String xmlCode = type.generateXMlCode() + "\n";
+        xmlCode += this.name.generateXMLCode();
+        return xmlCode;
+    }
+
     private void getName()
     {
         Token token = CompilationEngine.advance();

@@ -17,13 +17,17 @@ public class VariableNameTerm implements Iterm
         this.getVarName();
     }
 
+    @Override
+    public String generateXMLCode() {
+        String xmlCode = this.varName.generateXMLCode();
+        return xmlCode;
+    }
+
     private void getVarName()
     {
         Token token = CompilationEngine.advance();
 
-        if(token.getType() == TokenType.Identifier && 
-        (Statements.subRoutineVars.isVarDublicatedInSubRoutineBody(token) || 
-        SubRoutineDec.classVars.isNameDublicateeInClassScope(token.getBody())))
+        if(token.getType() == TokenType.Identifier)
         {
             IdentifierToken var = IdentifierToken.createIdentifierToken(token.getBody(), token.getPosition());
             this.varName = var;

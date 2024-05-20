@@ -39,6 +39,21 @@ public class Class_C extends JackCommand
 		}
 	}
 
+	// Generate XML Code
+	public String generateXMLCode()
+	{
+		String xmlCode = "<class>\n";
+		xmlCode += this.classKeywordToken.generateXMLCode() + "\n";
+		xmlCode += this.className.generateXMLCode() + "\n";
+		xmlCode += this.LeftCurlyBracket.generateXMLCode() + "\n";
+		xmlCode += this.classVarDec.generateXMLCode() + "\n";
+		xmlCode += this.subRoutineDec.generateXMLCode() + "\n";
+		xmlCode += this.RightCurlyBracket.generateXMLCode() + "\n";
+		xmlCode += "</class>";
+		return xmlCode;
+	}
+
+	// public static IdentifierToken get
 	public boolean isContainMethod(IdentifierToken token)
 	{
 		for(SubRoutineDec_C subRoutine: this.subRoutineDec.getSubRutines())

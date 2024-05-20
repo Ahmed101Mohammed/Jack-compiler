@@ -14,6 +14,12 @@ public class IntegerConstantTerm implements Iterm
         this.getIntegerConstant();
     }
 
+    @Override
+    public String generateXMLCode() {
+        String xmlCode = this.integerConstant.generateXMLCode();
+        return xmlCode;
+    }
+
     private void getIntegerConstant()
     {
         Token token = CompilationEngine.advance();

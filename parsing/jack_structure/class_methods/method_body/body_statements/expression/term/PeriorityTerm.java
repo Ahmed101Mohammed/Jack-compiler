@@ -22,6 +22,14 @@ public class PeriorityTerm implements Iterm
         this.getRightParanthes();
     }
 
+    @Override
+    public String generateXMLCode() {
+        String xmlCode = this.leftParanthesToken.generateXMLCode() + "\n";
+        xmlCode += this.expression.generateXMLCode() + "\n";
+        xmlCode += this.rightParanthesToken.generateXMLCode();
+        return xmlCode;
+    }
+
     private void getLeftParanthes()
     {
         Token token = CompilationEngine.advance();

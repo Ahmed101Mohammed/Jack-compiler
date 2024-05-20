@@ -24,6 +24,23 @@ public class VarDec extends JackCommand
         }
     }
 
+    public String generateXMLCode()
+    {
+        String xmlCode = "";
+        for(VarDec_C var: this.vars)
+        {
+            if(xmlCode.length() > 0)
+            {
+                xmlCode += "\n";
+            }
+            xmlCode += "<varDec>\n";
+            xmlCode += var.generateXMLCode() + "\n";
+            xmlCode += "</varDec>";
+        }
+
+        return xmlCode;
+    }
+
     public boolean isVarDublicatedInSubRoutineBody(Token token)
     {
         for(VarDec_C varDec:this.getVars())
@@ -39,11 +56,11 @@ public class VarDec extends JackCommand
     private boolean thereIsVarKeyWord()
     {
         Token token = CompilationEngine.advance();
+        CompilationEngine.decrementCurrentIndexByOne();
         if(token.getType() == TokenType.Keyword && token.getBody().equals("var"))
         {
             return true;
         }
-        CompilationEngine.decrementCurrentIndexByOne();
         return false;
     }
 

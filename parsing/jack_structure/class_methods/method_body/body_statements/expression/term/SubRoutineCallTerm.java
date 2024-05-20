@@ -14,6 +14,12 @@ public class SubRoutineCallTerm implements Iterm
         this.getSubRoutineCallTerm();    
     }
 
+    @Override
+    public String generateXMLCode() {
+        String xmlCode = this.subRoutineCallTerm.generateXMLCode();
+        return xmlCode;
+    }
+
     private void getSubRoutineCallTerm()
     {
         Token token = CompilationEngine.advance();
@@ -27,7 +33,7 @@ public class SubRoutineCallTerm implements Iterm
         }
         else if(token2.getType() == TokenType.Symbol && token2.getBody().equals("."))
         {
-            // this.subRoutineCallTerm = new MethodSubRoutineCallTerm();
+            this.subRoutineCallTerm = new MethodSubRoutineCallTerm();
         }
         else
         {

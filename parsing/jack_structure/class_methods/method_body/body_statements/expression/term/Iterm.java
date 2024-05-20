@@ -2,5 +2,6 @@ package parsing.jack_structure.class_methods.method_body.body_statements.express
 
 public interface Iterm
 {
-    public void generateVMCode();    
+    public void generateVMCode();
+    public String generateXMLCode();  
 }

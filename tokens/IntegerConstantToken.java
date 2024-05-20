@@ -7,6 +7,7 @@ public class IntegerConstantToken extends Token{
     private IntegerConstantToken(String token, Position tokenPosition)
     {
         super(token, tokenPosition);
+        this.setType(TokenType.IntegeralConstant);
     }
 
     public static IntegerConstantToken createIntegerConstantToken(String token, Position tokenPosition)

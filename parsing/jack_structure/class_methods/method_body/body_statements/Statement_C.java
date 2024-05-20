@@ -10,34 +10,48 @@ public class Statement_C extends JackCommand
     // isThereStatemen
     private IStatement statement;
 
-    public Statement_C()
+    public Statement_C(Statements statements)
     {
-        this.statement = this.getStatement();
+        this.getStatement();
+    }
+
+    public String generateXMLCode()
+    {
+        String xmlCode = this.statement.generateXMLCode();
+        return xmlCode;
     }
     
-    private IStatement getStatement()
+    private void getStatement()
     {
         Token token = CompilationEngine.advance();
         String tokenBody = token.getBody();
-        IStatement statement = null;
 
         switch(tokenBody)
         {
             case "let":
                 CompilationEngine.decrementCurrentIndexByOne();
-                // 
+                LetStatement letStatement = new LetStatement();
+                this.statement = letStatement;
                 break;
             case "if":
                 CompilationEngine.decrementCurrentIndexByOne();
+                IfStatement ifStatement = new IfStatement();
+                this.statement = ifStatement;
                 break;
             case "while":
                 CompilationEngine.decrementCurrentIndexByOne();
+                whileStatement whileStatement = new whileStatement();
+                this.statement = whileStatement;
                 break;
             case "do":
                 CompilationEngine.decrementCurrentIndexByOne();
+                DoStatement doStatement = new DoStatement();
+                this.statement = doStatement;
                 break;
             case "return":
                 CompilationEngine.decrementCurrentIndexByOne();
+                ReturnStatement returnStatement = new ReturnStatement();
+                this.statement = returnStatement;
                 break;
             default:
                 Token.allTokensErrors.add(new Error("InValidStatement", 
@@ -48,8 +62,6 @@ public class Statement_C extends JackCommand
                 System.out.println("Failed: Check Statement in subroutin body.");
                 break;
         }
-
-        return statement;
     }
     
 }

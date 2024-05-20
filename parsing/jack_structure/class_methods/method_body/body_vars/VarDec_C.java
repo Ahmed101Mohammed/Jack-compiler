@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioFileFormat.Type;
 import helperClasses.Error;
 import parsing.CompilationEngine;
 import parsing.JackCommand;
+import parsing.jack_structure.class_methods.method_body.SubRoutineBody;
 import tokens.IdentifierToken;
 import tokens.KeywordToken;
 import tokens.SymbolToken;
@@ -18,6 +19,7 @@ public class VarDec_C extends JackCommand
     private KeywordToken varKeyWord;
     private parsing.jack_structure.Type type;
     private ArrayList<IdentifierToken> varsNames = new ArrayList<>();
+    private ArrayList<Token> commas = new ArrayList<>();
     private SymbolToken semiColon;
 
     private VarDec parent;
@@ -30,6 +32,29 @@ public class VarDec_C extends JackCommand
         this.type = new parsing.jack_structure.Type();
         this.getVarsNames();
         this.getSemiColon();
+    }
+
+    public String generateXMLCode()
+    {
+        int varNamePointer = 0;
+        int commaPointer = 0;
+        String xmlCode = this.varKeyWord.generateXMLCode() + "\n";
+        xmlCode += this.type.generateXMlCode() + "\n";
+
+        while(varNamePointer < this.varsNames.size() - 1)
+        {
+            xmlCode += this.varsNames.get(varNamePointer).generateXMLCode() + "\n";
+            xmlCode += this.commas.get(commaPointer).generateXMLCode() + "\n";
+            varNamePointer += 1;
+            commaPointer += 1;
+        }
+        if(varNamePointer < this.varsNames.size())
+        {
+            xmlCode += this.varsNames.get(varNamePointer).generateXMLCode() + "\n";
+        }
+        
+        xmlCode += this.semiColon.generateXMLCode();
+        return xmlCode;
     }
 
     private void getSemiColon()
@@ -61,6 +86,7 @@ public class VarDec_C extends JackCommand
         Token token = CompilationEngine.advance();
         if(token.getType() == TokenType.Symbol && token.getBody().equals(","))
         {
+            this.commas.add(token);
             return true;
         }
         CompilationEngine.decrementCurrentIndexByOne();
@@ -87,7 +113,10 @@ public class VarDec_C extends JackCommand
 
     private boolean isVarDublicated(Token token)
     {
-        if(this.isVarDublicatedInVarStatement(token) || this.parent.isVarDublicatedInSubRoutineBody(token))
+        IdentifierToken var = IdentifierToken.createIdentifierToken(token.getBody(), token.getPosition());
+        if(this.isVarDublicatedInVarStatement(token) || 
+            this.parent.isVarDublicatedInSubRoutineBody(token) || 
+            SubRoutineBody.parameters.isIdentifierDublicated(var))
         {
             return true;
         }
@@ -122,5 +151,9 @@ public class VarDec_C extends JackCommand
         return (this.type.getTokenType() == TokenType.Identifier);
     }
 
+    public parsing.jack_structure.Type getType()
+    {
+        return this.type;
+    }
     
 }

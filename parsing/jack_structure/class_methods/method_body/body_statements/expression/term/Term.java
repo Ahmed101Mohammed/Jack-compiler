@@ -14,9 +14,18 @@ public class Term
         this.setTerm();
     }
 
+    public String generateXMLCode()
+    {
+        String xmlCode = "<term>\n";
+        xmlCode += this.term.generateXMLCode() + "\n";
+        xmlCode += "</term>";
+        return xmlCode;
+    }
+
     private void setTerm()
     {
         Token token = CompilationEngine.advance();
+        // System.out.println("Token body in term class: " + token.getBody() +" "+ token.getType());
         TokenType tokenType = token.getType();
 
         switch(tokenType)
@@ -44,6 +53,7 @@ public class Term
                 }
                 else
                 {
+                    System.out.println("// ExpectUnary: " + token.getBody());
                     this.term = new UnaryOpTerm();
                 }
                 break;
@@ -57,13 +67,13 @@ public class Term
                 {
                     this.term = new ArrayIndexingTerm();
                 }
-                else if(nextToken.getBody().equals(";"))
+                else if(nextToken.getBody().equals(".") || nextToken.getBody().equals("("))
                 {
-                    this.term = new VariableNameTerm();
+                    this.term = new SubRoutineCallTerm();
                 }
                 else
                 {
-                    // this.term = new SuberRoutineCallTerm();
+                    this.term = new VariableNameTerm();
                 }
                     
                 break;

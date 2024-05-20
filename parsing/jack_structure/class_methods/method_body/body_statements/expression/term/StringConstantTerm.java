@@ -14,6 +14,12 @@ public class StringConstantTerm implements Iterm
         this.getStringConstant();
     }
 
+    @Override
+    public String generateXMLCode() {
+        String xmlCode = this.stringConstant.generateXMLCode();
+        return xmlCode;
+    }
+
     private void getStringConstant()
     {
         Token token = CompilationEngine.advance();

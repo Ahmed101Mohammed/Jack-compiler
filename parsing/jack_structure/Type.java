@@ -12,6 +12,7 @@ public class Type extends JackCommand
     protected String body;
     protected TokenType tokenType;
     protected Position position;
+    private Token typeToken;
 
     public Type()    
     {
@@ -21,6 +22,7 @@ public class Type extends JackCommand
             this.body = token.getBody();
             this.tokenType = token.getType();
             this.position = token.getPosition();
+            this.typeToken = token;
             this.successCheckingMessage();
         }
         else if(isKeyWordDataType(token))
@@ -28,6 +30,7 @@ public class Type extends JackCommand
             this.body = token.getBody();
             this.tokenType = TokenType.Keyword;
             this.position = token.getPosition();
+            this.typeToken = token;
             this.successCheckingMessage();
         }
         else
@@ -39,6 +42,11 @@ public class Type extends JackCommand
         }
     }
 
+    public String generateXMlCode()
+    {
+        String xmlCode = this.typeToken.generateXMLCode();
+        return xmlCode;
+    }
     public boolean isKeyWordDataType(Token token)
     {
         String tokenBody = token.getBody();

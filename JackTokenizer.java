@@ -226,7 +226,6 @@ public class JackTokenizer {
 
     private String getFileNewName()
     {
-        String fileFolderPath = this.file.getParentFile().getName();
         String newFileName = JackAnalyzer.relativeProjectRoot + this.getFileNameWithoutExtension() + "TM" + ".xml";
         return newFileName;
     }
@@ -259,5 +258,9 @@ public class JackTokenizer {
             System.out.println("Failed to create xml Write file, because of: " + e.getMessage());
         }
 
+    }
+
+    public File getFile() {
+        return file;
     }
 }

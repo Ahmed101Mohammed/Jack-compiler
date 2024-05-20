@@ -21,6 +21,7 @@ public class MethodSubRoutineCallTerm implements IsubRoutineCallTerm
     private SymbolToken leftParanthes;
     private ArrayList<Expression> expressionList = new ArrayList<>();
     private SymbolToken rightParanthes;
+    private ArrayList<Token> commas = new ArrayList<>();
 
     public MethodSubRoutineCallTerm()
     {
@@ -31,13 +32,51 @@ public class MethodSubRoutineCallTerm implements IsubRoutineCallTerm
         this.getAllExpressions();
         this.getRightParanthes();
     }
+
+    @Override
+    public String generateXMLCode() {
+        int expressionPointer = 0;
+        int commaPointer = 0;
+        String xmlCode = this.caller.generateXMLCode() + "\n";
+        xmlCode += this.dot.generateXMLCode() + "\n";
+        xmlCode += this.subRoutineName.generateXMLCode() + "\n";
+        xmlCode += this.leftParanthes.generateXMLCode() + "\n";
+        xmlCode += "<expressionList>\n";
+        while(expressionPointer < this.expressionList.size() -1)
+        {
+            xmlCode += this.expressionList.get(expressionPointer).generateXMLCode() + "\n";
+            xmlCode += this.commas.get(commaPointer).generateXMLCode() + "\n";
+            expressionPointer += 1;
+            commaPointer += 1;
+        }
+
+        if(expressionPointer < this.expressionList.size())
+        {
+            xmlCode += this.expressionList.get(expressionPointer).generateXMLCode() + "\n";
+        }
+
+        xmlCode += "</expressionList>\n";
+        xmlCode += this.rightParanthes.generateXMLCode();
+        return xmlCode;
+    }
     // OO Jack
     private void getSubRoutineName() // Complate from here.
     {
-        // [ ] I thing we forget to determine of variables is defined in teh prameter list.
-        // [ ] Find way to get the class name of predefined variable.
-        // [ ] Find way to store the subroutiense the say they is part of some class. {subRoutineName: className}
-        // [ ] 
+        Token token = CompilationEngine.advance();
+        if(token.getType() == TokenType.Identifier)
+        {
+            IdentifierToken method = IdentifierToken.createIdentifierToken(token.getBody(), token.getPosition());
+            this.subRoutineName = method;
+            System.out.println("Success: Check subroutine name.");
+        }
+        else
+        {
+            Token.allTokensErrors.add(new Error("UnExpectedToken", 
+                CompilationEngine.expectedRatharThanErrorMessage("[variable name] IdentifierToken", token.getBody()),
+                token.getPosition()));
+
+            System.out.println("Faile: Check subrouine name.");
+        }
     } 
     private void getDot()
     {
@@ -55,10 +94,7 @@ public class MethodSubRoutineCallTerm implements IsubRoutineCallTerm
     {
         Token token = CompilationEngine.advance();
 
-        if(token.getType() == TokenType.Identifier && 
-        (Statements.subRoutineVars.isVarDublicatedInSubRoutineBody(token) ||
-        SubRoutineDec.classVars.isNameDublicateeInClassScope(token.getBody()) || 
-        Class_C.isClassDefinedBefore(token.getBody())))
+        if(token.getType() == TokenType.Identifier)
         {
             IdentifierToken callerName = IdentifierToken.createIdentifierToken(token.getBody(), token.getPosition());
             this.caller = callerName;
@@ -90,6 +126,7 @@ public class MethodSubRoutineCallTerm implements IsubRoutineCallTerm
 
         if(token.getType() == TokenType.Symbol && token.getBody().equals(","))
         {
+            this.commas.add(token);
             return true;
         }
         CompilationEngine.decrementCurrentIndexByOne();

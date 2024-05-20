@@ -29,6 +29,23 @@ public class ClassVarDec extends JackCommand{
         }
     }
 
+    public String generateXMLCode()
+    {
+        String xmlCode = "";
+        for(ClassVarDec_C var: this.vars)
+        {
+            if(xmlCode.length() > 0)
+            {
+                xmlCode += "\n";
+            }
+            xmlCode += "<classVarDec>\n";
+            xmlCode += var.generateXMLCode() + "\n";
+            xmlCode += "</classVarDec>";
+        }
+        
+        return xmlCode;
+    }
+
     public boolean isNameDublicateeInClassScope(String varName)
     {
         for(ClassVarDec_C var:this.getVars())

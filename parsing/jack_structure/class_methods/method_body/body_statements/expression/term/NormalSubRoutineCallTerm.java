@@ -8,6 +8,7 @@ import parsing.CompilationEngine;
 import parsing.jack_structure.class_methods.SubRoutineDec;
 import parsing.jack_structure.class_methods.SubRoutineDec_C;
 import parsing.jack_structure.class_methods.method_body.body_statements.Statements;
+import parsing.jack_structure.class_methods.method_body.body_statements.whileStatement;
 import parsing.jack_structure.class_methods.method_body.body_statements.expression.Expression;
 import tokens.IdentifierToken;
 import tokens.SymbolToken;
@@ -20,6 +21,7 @@ public class NormalSubRoutineCallTerm implements IsubRoutineCallTerm
     private SymbolToken leftParanthesSymbol;
     private ArrayList<Expression> expressionList = new ArrayList<>();
     private SymbolToken rightParanthesSymbol;
+    private ArrayList<Token> commas = new ArrayList<>();
 
     public NormalSubRoutineCallTerm()
     {
@@ -27,6 +29,31 @@ public class NormalSubRoutineCallTerm implements IsubRoutineCallTerm
         this.getLeftParanthes();
         this.getAllExpressions();
         this.getRightParanthes();
+    }
+
+    @Override
+    public String generateXMLCode() {
+        int expressionPointer = 0;
+        int commaPointer = 0;
+        String xmlCode = this.subRoutineName.generateXMLCode() + "\n";
+        xmlCode += this.leftParanthesSymbol.generateXMLCode() + "\n";
+        xmlCode += "<expressionList>\n";
+        while(expressionPointer < this.expressionList.size() - 1)
+        {
+            xmlCode += this.expressionList.get(expressionPointer).generateXMLCode() + "\n";
+            xmlCode += this.commas.get(commaPointer).generateXMLCode() + "\n";
+            expressionPointer += 1;
+            commaPointer += 1;
+        }
+
+        if(expressionPointer < this.expressionList.size())
+        {
+            xmlCode += this.expressionList.get(expressionPointer).generateXMLCode() + "\n";
+        }
+
+        xmlCode += "</expressionList>\n";
+        xmlCode += this.rightParanthesSymbol.generateXMLCode();
+        return xmlCode;
     }
 
     private void getAllExpressions()
@@ -46,6 +73,7 @@ public class NormalSubRoutineCallTerm implements IsubRoutineCallTerm
 
         if(token.getType() == TokenType.Symbol && token.getBody().equals(","))
         {
+            this.commas.add(token);
             return true;
         }
         CompilationEngine.decrementCurrentIndexByOne();
@@ -101,7 +129,7 @@ public class NormalSubRoutineCallTerm implements IsubRoutineCallTerm
     {
         Token token = CompilationEngine.advance();
 
-        if(token.getType() == TokenType.Identifier && SubRoutineDec_C.subRoutineDecParent.isDublicatedSubRoutineName(token))
+        if(token.getType() == TokenType.Identifier)
         {
             IdentifierToken subRoutineName_ = IdentifierToken.createIdentifierToken(token.getBody(), token.getPosition());
             this.subRoutineName = subRoutineName_;

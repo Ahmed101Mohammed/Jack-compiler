@@ -16,8 +16,10 @@ public class ClassVarDec_C extends JackCommand{
     private boolean complateStructured = false;
     // structure elements
     private ClassVariableType variableScope = null;
+    private Token variableScopeToken;
     private Type type;
     private ArrayList<IdentifierToken> variablesNames = new ArrayList<>();
+    private ArrayList<Token> commas = new ArrayList<>();
     private SymbolToken simicollon;
 
 
@@ -35,6 +37,30 @@ public class ClassVarDec_C extends JackCommand{
         {
             CompilationEngine.decrementCurrentIndexByOne();
         }
+    }
+
+    public String generateXMLCode()
+    {
+        int varNamePointer = 0;
+        int commaPointer = 0;
+        String xmlCode = this.variableScopeToken.generateXMLCode() + "\n";
+        xmlCode += this.type.generateXMlCode() + "\n";
+        
+        while(varNamePointer < this.variablesNames.size() - 1)
+        {
+            xmlCode += this.variablesNames.get(varNamePointer).generateXMLCode() + "\n";
+            xmlCode += this.commas.get(commaPointer).generateXMLCode() + "\n";
+            varNamePointer += 1;
+            commaPointer += 1;
+        }
+        if(varNamePointer < this.variablesNames.size())
+        {
+            xmlCode += this.variablesNames.get(varNamePointer).generateXMLCode() + "\n";
+        }
+        
+        xmlCode += this.simicollon.generateXMLCode();
+
+        return xmlCode;
     }
 
     public void getSemiCollon()
@@ -72,6 +98,7 @@ public class ClassVarDec_C extends JackCommand{
         Token token = CompilationEngine.advance();
         if(token.getType() == TokenType.Symbol && token.getBody().equals(","))
         {
+            this.commas.add(token);
             System.out.println("Success: Check comma.");
             return true;
         }
@@ -115,6 +142,7 @@ public class ClassVarDec_C extends JackCommand{
         if(token.getType() == TokenType.Keyword && (tokenBody.equals("static") || tokenBody.equals("field")))
         {
             this.variableScope = getVariableScopeFromString(tokenBody);
+            this.variableScopeToken = token;
             System.out.println("Success: Check class variable scope.");
         }
     }

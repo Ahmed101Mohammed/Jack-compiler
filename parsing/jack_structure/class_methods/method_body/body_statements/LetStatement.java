@@ -35,7 +35,24 @@ public class LetStatement implements IStatement
         this.getEqualSign();
         this.expression = new Expression();
         this.getSimiColon();
+    }
 
+    @Override
+    public String generateXMLCode() {
+        String xmlCode = "<letStatement>\n";
+        xmlCode += this.letKeyword.generateXMLCode() + "\n";
+        xmlCode += this.varName.generateXMLCode() + "\n";
+        if(this.leftSquareBracket != null)
+        {
+            xmlCode += this.leftSquareBracket.generateXMLCode() + "\n";
+            xmlCode += this.indexingExpression.generateXMLCode() + "\n";
+            xmlCode += this.rightSquareBracket.generateXMLCode() + "\n";
+        }
+        xmlCode += this.equalSign.generateXMLCode() + "\n";
+        xmlCode += this.expression.generateXMLCode() + "\n";
+        xmlCode += this.simicolon.generateXMLCode() + "\n";
+        xmlCode += "</letStatement>";
+        return xmlCode;
     }
 
     private void getSimiColon()
@@ -53,7 +70,7 @@ public class LetStatement implements IStatement
                 CompilationEngine.expectedRatharThanErrorMessage("';' SymbolToken", token.getBody()),
                 token.getPosition()));
             
-            System.out.println("Faile: Check simicolon.");
+            System.out.println("Fail: Check simicolon. the exist token is: " + token.getBody());
         }
     }
 
@@ -109,9 +126,11 @@ public class LetStatement implements IStatement
     private void getVarName()
     {
         Token token = CompilationEngine.advance();
+        IdentifierToken variable = IdentifierToken.createIdentifierToken( token.getBody(), token.getPosition());
         if(token.getType() == TokenType.Identifier && 
         (Statements.subRoutineVars.isVarDublicatedInSubRoutineBody(token) || 
-        SubRoutineDec.classVars.isNameDublicateeInClassScope(token.getBody())))
+        SubRoutineDec.classVars.isNameDublicateeInClassScope(token.getBody()) ||
+        SubRoutineBody.parameters.isIdentifierDublicated(variable)))
         {
             IdentifierToken var = IdentifierToken.createIdentifierToken(token.getBody(), token.getPosition());
             this.varName = var;

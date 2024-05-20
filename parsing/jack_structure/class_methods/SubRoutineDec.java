@@ -25,6 +25,24 @@ public class SubRoutineDec extends JackCommand
             this.subRutines.add(oneRoutine);    
         }
     }
+
+    public String generateXMLCode()
+    {
+        String xmlCode = "";
+
+        for(SubRoutineDec_C subRoutine: this.subRutines)
+        {
+            if(xmlCode.length() > 0)
+            {
+                xmlCode += "\n";
+            }
+            xmlCode += "<subroutineDec>\n";
+            xmlCode += subRoutine.generateXMlCode() + "\n";
+            xmlCode += "</subroutineDec>";
+        }
+        
+        return xmlCode;
+    }    
     
     public boolean isDublicatedSubRoutineName(Token token)
     {
@@ -41,4 +59,5 @@ public class SubRoutineDec extends JackCommand
     public ArrayList<SubRoutineDec_C> getSubRutines() {
         return subRutines;
     }
+
 }

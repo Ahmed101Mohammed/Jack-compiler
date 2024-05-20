@@ -14,6 +14,11 @@ public class KeywordConstantTerm implements Iterm
         this.getKeywordConstant();
     }
 
+    @Override
+    public String generateXMLCode() {
+        String xmlCode = this.keywordConstant.generateXMLCode();
+        return xmlCode;
+    }
     private void getKeywordConstant()
     {
         Token token = CompilationEngine.advance();

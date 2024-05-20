@@ -16,6 +16,13 @@ public class UnaryOpTerm implements Iterm
         this.term = new Term();
     }
 
+    @Override
+    public String generateXMLCode() {
+        String xmlCode = this.unaryOperator.generateXMLCode() + "\n";
+        xmlCode += this.term.generateXMLCode();
+        return xmlCode;
+    }
+
     private void getUnaryOperator()
     {
         Token token = CompilationEngine.advance();
@@ -27,6 +34,10 @@ public class UnaryOpTerm implements Iterm
             SymbolToken unaryop = SymbolToken.createSymbolToken(token.getBody(), token.getPosition());
             this.unaryOperator = unaryop;
             System.out.println("Success: Check unary operator term.");
+        }
+        else
+        {
+            System.out.println("Fail: Check unary operator term.");
         }
     }
     @Override

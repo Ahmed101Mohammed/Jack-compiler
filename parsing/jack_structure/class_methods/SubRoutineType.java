@@ -9,7 +9,7 @@ public class SubRoutineType{
     private String body;
     private TokenType tokenType;
     private Position position;
-
+    private Token typeToken;
     public SubRoutineType()
     {
         Token token = CompilationEngine.advance();
@@ -18,6 +18,7 @@ public class SubRoutineType{
             this.body = token.getBody();
             this.tokenType = token.getType();
             this.position = token.getPosition();
+            this.typeToken = token;
             this.successCheckingMessage();
         }
         else if(isKeyWordDataType(token))
@@ -25,6 +26,7 @@ public class SubRoutineType{
             this.body = token.getBody();
             this.tokenType = TokenType.Keyword;
             this.position = token.getPosition();
+            this.typeToken = token;
             this.successCheckingMessage();
         }
         else
@@ -36,6 +38,11 @@ public class SubRoutineType{
         }
     }
 
+    public String generateXMLCode()
+    {
+        String xmlCode = this.typeToken.generateXMLCode();
+        return xmlCode;
+    }
     public boolean isKeyWordDataType(Token token) {
         String tokenBody = token.getBody();
         if(token.getType() == TokenType.Keyword && 
