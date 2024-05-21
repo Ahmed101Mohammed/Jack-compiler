@@ -367,3 +367,12 @@ Access to any array entry arr[i] is realized as follows:
 - access the entry accessing 'this 0'
 - Compiling subroutines
 ![Compiling subroutines image from the lecture](./images/compiling_subroutines.bmp)
+- Compiling subroutines call
+![Compiling subroutines calls image from the lecture](./images/compiling-subroutines-call.bmp)
+### Note: in the call of void method, we can ignore the returned value by: pop temp 0.
+- Compiling constants
+![Compiling constants image from the lecture](./images/Compiling-constants.bmp)
+- OS class & subroutines
+![OS class & subroutines image from the lecture](./images/os-classes-and-subroutines.bmp)
+- Special os services
+![Special os services image from the lecture](./images/special-os-services.bmp)
