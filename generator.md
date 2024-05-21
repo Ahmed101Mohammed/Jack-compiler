@@ -376,3 +376,20 @@ Access to any array entry arr[i] is realized as follows:
 ![OS class & subroutines image from the lecture](./images/os-classes-and-subroutines.bmp)
 - Special os services
 ![Special os services image from the lecture](./images/special-os-services.bmp)
+____________________________________________________________________
+===== 5.10: Completing the Compiler: Proposed Implementation =====
+- Symbole Table:
+![Symbole table description image from the lecture](./images/Symbol-table-as-part-of-compiler.bmp)
+### What I think about way to implement it:
+> I think that may Symbole Table be a static and contain 2 parts: classScope & routineScope
+> I think also Symbole table can contain method like:
+> - resetClassScope 
+> - resetRoutineScope
+> - addVar(name, type, kind)
+> - getVar(varName) => May there will be a SymboleItem and its teh return of this function.
+#### Her is implementation notes for symbole tables:
+![Implementaion notes of symbole tables from the lecture](./images/implementation-notes-for-symbole-table.bmp)
+- VMWriter:
+![VMWriter API from the lecture](./images/VMWriter.bmp)
+### Note: you can develop you compiler gradually by using projects in foledr '11' in the order of the lecture (start form: 11:10)
+____________________________________________________________________
