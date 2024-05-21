@@ -1,9 +1,9 @@
 ===== 5.1 =====
-=> Each jack file compiled alone.
-=> Compiling of each class can devied into:
+- Each jack file compiled alone.
+- Compiling of each class can devied into:
     - Compiling all variable declared in the class with each other lonly.
     - Compiling each subroutine of the class lonly.
-=> Our compilation challenges:
+- Our compilation challenges:
     - Handling variables.
     - Handling expressions.
     - Handling flow of control.
@@ -13,9 +13,9 @@
 ===== 5.2: Handling variables =====
 with cmmand like: sum = x * 6 + i;
 - We have a problem with:
-    :> determin each variable segment (static, field, local, argument).
-    :> Determin each varialbe order in it's segment.
-=> Example:
+    - determin each variable segment (static, field, local, argument).
+    - Determin each varialbe order in it's segment.
+- Example:
     Jack code            | psudo VM code | VM code              |
     -------------------------------------------------------------
     sum = x * (1 + rate) | push x        | push argument 2      | // assume that x is the 3rd variable in argument segment.
@@ -24,25 +24,25 @@ with cmmand like: sum = x * 6 + i;
                          | +             | add                  |
                          | *             | call Math.multiply 2 |
                          | pop sum       | pop local 3          | // assume that sum is the 4th variable in local segment.
-=> To handle variables we can devid them in two parts:
+- To handle variables we can devid them in two parts:
     - class-level variables: 
-        :> field.
-        :> static.
+        - field.
+        - static.
     - subroutine-level variable:
-        :> argument.
-        :> local.
-=> variable properities:
+        - argument.
+        - local.
+- variable properities:
     - name.
     - type.
     - kind.
     - scope.
-=> variable properities with Jack:
+- variable properities with Jack:
     - name (identifier).
     - type (int, char, boolean, className).
     - kind (field, static, local, argument).
     - scope (class level, subroutine level).
 
-=> We can use symbole table to handle variables decleration, example:
+- We can use symbole table to handle variables decleration, example:
 Jack Code:
     class Point {
         field int x, y;
@@ -67,10 +67,10 @@ Symbole table for the previous Jack code [subroutine-level variables]:
     | dx         | int   | local    | 0 |
     | dy         | int   | local    | 1 |
 
-=> Because we compile classes speratly we can git red of Symbole table of class-level variables, after finishing compiling of the class.
-=> Because we compile subroutines seperatly we can git red of Symbole table of subroutine-level variables, after finishing compiling of the subroutine.
+- Because we compile classes speratly we can git red of Symbole table of class-level variables, after finishing compiling of the class.
+- Because we compile subroutines seperatly we can git red of Symbole table of subroutine-level variables, after finishing compiling of the subroutine.
 
-=> Handling variable usage:
+- Handling variable usage:
 when you find a variable in any expressions, or let statement you can do the following in order:
     1. Search the variable in the Symbole table of subroutine-level, if you find then it's ok. else,
     2. Search the variable in the Symbole table of class-level, if you find then it's ok, else,
@@ -81,7 +81,7 @@ when you find a variable in any expressions, or let statement you can do the fol
 ____________________________________________________________________
 
 ===== 5.3: Handling expressions =====
-=> Expression in Jack example:
+- Expression in Jack example:
 x + y * (5 + sum(2,4))
 - to make the compiling for expression easier we will use parsing tree:
     +
@@ -100,14 +100,14 @@ x       *
 #Note: for you, you have anothe compilert architechture so I think it's good to understand this, but create what you find easier and faster.
 ____________________________________________________________________
 ===== 5.4: Handling flow of control =====
-=> When we need to control flow in Jack (if/while), we tread with flow control in VM (goto, if-goto, label).
-=> Compiling if statement:
-:> If statement structure in jack:
+- When we need to control flow in Jack (if/while), we tread with flow control in VM (goto, if-goto, label).
+- Compiling if statement:
+- If statement structure in jack:
     if(expression)
         statements1
     else
         statements2
-:> If statement compiling in VM:
+- If statement compiling in VM:
     compiling(expression)
     not
     if-goto L1
@@ -117,12 +117,12 @@ label L1
     compiling(statements2)
 label L2
 
-=> Compiling while statement:
-:> while statement structure in jack:
+- Compiling while statement:
+- while statement structure in jack:
     while(expression)
         statements
 
-:> while statement compiling in VM:
+- while statement compiling in VM:
 label L1
     compiling(expression)
     not
@@ -135,20 +135,20 @@ label L2
 ____________________________________________________________________
 ===== 5.5: Handling objects =====
 
-=> this, that segments: 
+- this, that segments: 
 - represent object and array data.
 - locate on the heap.
-=> Implementation:
+- Implementation:
 - Base address: THIS and THAT.
 - Set use:
-    :> pointer 0 (this)
-    :> pointer 1 (that)
+    - pointer 0 (this)
+    - pointer 1 (that)
 - managed by VM.
 
 #Note: this segment used to manage objects, and that sement used to manage arrays.
 ____________________________________________________________________
 ===== 5.6: Handling objects more (Construction) =====
-=> this is example of Jack code with vm compiling for the object from the caller prespective:
+- this is example of Jack code with vm compiling for the object from the caller prespective:
 - The full view of the Jack code:
     var Point p1;
     let p1 = Point.new(2, 3);
@@ -161,14 +161,14 @@ ____________________________________________________________________
     call Point.new // we assume that any constructor function should return the location of the created object.
     pop p1;
 
-=> what is the constructor function task:
+- what is the constructor function task:
 - Arrange the creation of new object.
 - Initialize the new object to some intial state therefore, the constructor code need typicaly to access to object's field.
-=> How the constructor can access the object's field:
+- How the constructor can access the object's field:
 - first constructor code must anchore the this segment to object's data, using pointer.
 - then constructor can access object's data using the this segment.
 
-=> this is example of Jack code with vm compiling for the object from the callee prespective:
+- this is example of Jack code with vm compiling for the object from the callee prespective:
 - The full view of the Jack code:
     class Point {
         field int x, y;
@@ -217,9 +217,9 @@ ____________________________________________________________________
 ____________________________________________________________________
 ===== 5.7: Handling objects more (Manipulation) =====
 We mean with word 'manipulation': how the object treat with it's methods.
-=> Now we have 2 part of manipulation:
+- Now we have 2 part of manipulation:
 - 1st: Caller side, example: do p1.distance(p2);
-    :> I will translate this code to VM code:
+    - I will translate this code to VM code:
         // do p1.distance(p2)
         push p1 // Note her we treate with distance as method have 2 arguments not just one, ant the object it self is the 1st argument.
         push p2
@@ -243,11 +243,11 @@ class Point {
         return Math.sqrt((dx*dx) + (dy * dy));
     }
 }
-    :> 1st thing you need to know is the method of any object need to access to object field, so how we can do that:
+    - 1st thing you need to know is the method of any object need to access to object field, so how we can do that:
         We all ready know that each method have 'this' as a 1st argument.
         we know also that 'this' contain the address of the object in RAM
         so to access any field we need just say 'this n' and n is refere to the field order.
-    :> Here i will write code with Jack and translate it to VM code:
+    - Here i will write code with Jack and translate it to VM code:
     *jack code:*
         class Point {
         field x, y;
@@ -292,7 +292,7 @@ class Point {
                                // so the returned value in call stack will removed and move to the first register of temp segment.
 ____________________________________________________________________
 ===== 5.8: Handling arrays =====
-=> Handling arrays contain 2 parts:
+- Handling arrays contain 2 parts:
 1st: Handling arrays from constructor prespective:
     - This is Jack code:
         var Array arr;
@@ -349,21 +349,21 @@ ____________________________________________________________________
         pop that 0
 ____________________________________________________________________
 ===== 5.9: Standard Mapping over the VM =====
-=> Files and subroutines Mapping
+- Files and subroutines Mapping
 - Jack file: Main.jack conveted to Main.vm when compiling.
 - When compiling subroutines of class, we convert them to: function ClassName.subroutineName
 - Whan compiling each subroutine arguments number in jack language will be the same in VM except subroutines with 'method' constructor
     it's arguments in VM will be k+1 (k: is the number of argument of the method in jack).
-=> Variable Mapping:
+- Variable Mapping:
 - The local (subroutine vars) variables maped on VM segment local.
 - The parameter variables mapped on VM segment argument.
 - The static varibles mapped on VM segment static
 - The field variables of the current object are accesses as following:
-    :> assumption: we set the this key word to the object content address by pointer 0
-    :> the i-th field of this object is mapped on 'this i'.
-=> Arrays Mapping:
+    - assumption: we set the this key word to the object content address by pointer 0
+    - the i-th field of this object is mapped on 'this i'.
+- Arrays Mapping:
 Access to any array entry arr[i] is realized as follows:
 - 1st set pointer 1 to the enrty's address (arr + i).
 - access the entry accessing 'this 0'
-=> Compiling subroutines
+- Compiling subroutines
 ![Compiling subroutines image from the lecture](./images/compiling_subroutines.bmp)
