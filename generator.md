@@ -348,7 +348,7 @@ ____________________________________________________________________
         push temp 0
         pop that 0
 ____________________________________________________________________
-===== 5.8: Standard Mapping over the VM =====
+===== 5.9: Standard Mapping over the VM =====
 => Files and subroutines Mapping
 - Jack file: Main.jack conveted to Main.vm when compiling.
 - When compiling subroutines of class, we convert them to: function ClassName.subroutineName
@@ -366,4 +366,4 @@ Access to any array entry arr[i] is realized as follows:
 - 1st set pointer 1 to the enrty's address (arr + i).
 - access the entry accessing 'this 0'
 => Compiling subroutines
-[Compiling subroutines image from the lecture](./images/compiling_subroutines.bmp)
+![Compiling subroutines image from the lecture](./images/compiling_subroutines.bmp)
