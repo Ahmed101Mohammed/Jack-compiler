@@ -1,5 +1,7 @@
 package parsing.jack_structure.class_methods.method_body.body_statements.expression.op;
 
+import java.util.HashMap;
+
 import parsing.CompilationEngine;
 import tokens.SymbolToken;
 import tokens.Token;
@@ -9,6 +11,17 @@ public class Op
 {
     private SymbolToken op;
     private boolean isValidOp = false;
+    private HashMap<String, String> opToVM = new HashMap<>() {{
+        put("+", "add\n");
+        put("-", "sub\n");
+        put("*", "Math.multiply\n");
+        put("/", "Math.divide\n");
+        put("&", "and\n");
+        put("|", "or\n");
+        put("=", "eq\n");
+        put("<", "lt\n");
+        put(">", "gt\n");
+    }}; 
     
     public Op()
     {
@@ -56,5 +69,13 @@ public class Op
     public boolean isValidOp()
     {
         return this.isValidOp;
+    }
+
+    public String generateVMCode()
+    {
+        String opString = op.getBody();
+        String vmCode = opToVM.get(opString);
+
+        return vmCode;
     }
 }
