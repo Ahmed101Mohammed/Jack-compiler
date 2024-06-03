@@ -168,5 +168,15 @@ public class Class_C extends JackCommand
 		return false;
 	}
 
-	public String generateVMCode(){return null;}
+	public String generateVMCode()
+	{
+		String vmCode = this.classVarDec.generateVMCode();
+		vmCode += this.subRoutineDec.generateVMCode();
+		return vmCode;
+	}
+
+	@Override
+	public String getName() {
+		return this.getPureName();
+	}
 }
