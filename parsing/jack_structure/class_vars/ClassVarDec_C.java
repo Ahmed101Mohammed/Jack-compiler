@@ -18,7 +18,7 @@ public class ClassVarDec_C extends JackCommand{
     private ClassVariableType variableScope = null;
     private Token variableScopeToken;
     private Type type;
-    private ArrayList<IdentifierToken> variablesNames = new ArrayList<>();
+    public ArrayList<IdentifierToken> variablesNames = new ArrayList<>();
     private ArrayList<Token> commas = new ArrayList<>();
     private SymbolToken simicollon;
 
@@ -183,5 +183,9 @@ public class ClassVarDec_C extends JackCommand{
 
     public Type getType() {
         return type;
+    }
+
+    public String getVariableScopeTokenBodyString() {
+        return variableScopeToken.getBody();
     }
 }

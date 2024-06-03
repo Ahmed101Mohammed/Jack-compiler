@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import parsing.CompilationEngine;
 import parsing.JackCommand;
 import tokens.IdentifierToken;
+import vmWrtier.symboleTable.SymboleTable;
 
 public class ClassVarDec extends JackCommand{
     private ArrayList<ClassVarDec_C> vars = new ArrayList<>();
@@ -63,5 +64,19 @@ public class ClassVarDec extends JackCommand{
     }
     public ArrayList<ClassVarDec_C> getVars() {
         return vars;
+    }
+
+    public String generateVMCode()
+    {
+        for(ClassVarDec_C var: this.vars)
+        {
+            String varType = var.getName();
+            String varKind = var.getVariableScopeTokenBodyString();
+            for (IdentifierToken varName:var.variablesNames)
+            {
+                SymboleTable.addVAr(varName.getBody(), varType, varKind);
+            }
+        }
+        return "";
     }
 }
