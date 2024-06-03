@@ -12,6 +12,7 @@ import tokens.IdentifierToken;
 import tokens.KeywordToken;
 import tokens.Token;
 import tokens.TokenType;
+import vmWrtier.symboleTable.SymboleTable;
 
 public class Class_C extends JackCommand
 {
@@ -170,6 +171,7 @@ public class Class_C extends JackCommand
 
 	public String generateVMCode()
 	{
+		SymboleTable.resetClassLevelSymboles(this.className.getBody());
 		String vmCode = this.classVarDec.generateVMCode();
 		vmCode += this.subRoutineDec.generateVMCode();
 		return vmCode;
