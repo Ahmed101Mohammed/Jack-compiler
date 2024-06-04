@@ -10,7 +10,6 @@ import parsing.jack_structure.class_methods.method_body.body_vars.VarDec_C;
 import parsing.jack_structure.class_methods.method_parameter.Parameter_C;
 import parsing.jack_structure.class_vars.ClassVarDec_C;
 import tokens.Token;
-import tokens.TokenType;
 
 public class CompilationEngine
 {

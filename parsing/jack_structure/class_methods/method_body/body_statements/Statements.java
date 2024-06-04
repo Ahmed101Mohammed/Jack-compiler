@@ -4,12 +4,7 @@ import java.util.ArrayList;
 
 import parsing.CompilationEngine;
 import parsing.JackCommand;
-import parsing.jack_structure.class_methods.SubRoutineDec;
-import parsing.jack_structure.class_methods.method_body.SubRoutineBody;
 import parsing.jack_structure.class_methods.method_body.body_vars.VarDec;
-import parsing.jack_structure.class_methods.method_parameter.ParameterList;
-import parsing.jack_structure.class_vars.ClassVarDec;
-import tokens.IdentifierToken;
 import tokens.Token;
 import tokens.TokenType;
 

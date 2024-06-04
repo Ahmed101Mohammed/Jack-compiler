@@ -12,9 +12,6 @@ public class Expression
     // op
     private ArrayList<Op> ops = new ArrayList<>();
 
-    // expresoin
-    private Expression expression;
-
     // constructor:
     public Expression()
     {

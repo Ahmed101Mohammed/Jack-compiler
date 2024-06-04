@@ -1,14 +1,9 @@
 package parsing.jack_structure.class_methods.method_body.body_statements.expression.term;
 
-import java.lang.foreign.SymbolLookup;
 import java.util.ArrayList;
-
 import helperClasses.Error;
 import parsing.CompilationEngine;
-import parsing.jack_structure.class_methods.SubRoutineDec;
 import parsing.jack_structure.class_methods.SubRoutineDec_C;
-import parsing.jack_structure.class_methods.method_body.body_statements.Statements;
-import parsing.jack_structure.class_methods.method_body.body_statements.whileStatement;
 import parsing.jack_structure.class_methods.method_body.body_statements.expression.Expression;
 import tokens.IdentifierToken;
 import tokens.SymbolToken;

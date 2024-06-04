@@ -22,8 +22,8 @@ public class whileStatement implements IStatement
     private int myOrder;
     public whileStatement()
     {
-        this.whiles += 1;
-        this.myOrder = this.whiles;
+        whiles += 1;
+        this.myOrder = whiles;
         this.getWhileKeyword();
         this.getLeftPananthes();
         this.expression = new Expression();

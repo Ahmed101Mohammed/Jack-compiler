@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import parsing.CompilationEngine;
 import parsing.JackCommand;
 import tokens.IdentifierToken;
-import vmWrtier.symboleTable.SymboleTable;
 
 public class ClassVarDec extends JackCommand{
     private ArrayList<ClassVarDec_C> vars = new ArrayList<>();

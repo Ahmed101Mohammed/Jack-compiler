@@ -1,9 +1,6 @@
 package parsing.jack_structure.class_methods.method_body.body_vars;
 
 import java.util.ArrayList;
-
-import javax.sound.sampled.AudioFileFormat.Type;
-
 import helperClasses.Error;
 import parsing.CompilationEngine;
 import parsing.JackCommand;

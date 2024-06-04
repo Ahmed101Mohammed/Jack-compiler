@@ -1,7 +1,5 @@
 package parsing.jack_structure.class_methods.method_body.body_statements;
 
-import java.lang.foreign.SymbolLookup;
-
 import helperClasses.Error;
 import parsing.CompilationEngine;
 import parsing.jack_structure.class_methods.method_body.body_statements.expression.term.SubRoutineCallTerm;
