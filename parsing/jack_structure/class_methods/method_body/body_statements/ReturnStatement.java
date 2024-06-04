@@ -92,7 +92,7 @@ public class ReturnStatement implements IStatement
             vmCode += "push constant 0\n";
         }
 
-        vmCode += "return";
+        vmCode += "return\n";
         return vmCode;
     }    
 }

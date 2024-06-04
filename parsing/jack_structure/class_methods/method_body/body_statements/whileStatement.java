@@ -153,7 +153,7 @@ public class whileStatement implements IStatement
         vmCode += "not\n" + "if-goto WHILE_END_L" + this.myOrder + "\n";
         vmCode += this.statements.generateVMCode();
         vmCode += "goto WHILE_START_L" + this.myOrder + "\n";
-        vmCode += "label WHILE_END_L" + this.myOrder;
+        vmCode += "label WHILE_END_L" + this.myOrder + "\n";
         return vmCode;
     }    
 }

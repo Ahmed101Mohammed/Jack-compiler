@@ -10,6 +10,7 @@ import tokens.IdentifierToken;
 import tokens.SymbolToken;
 import tokens.Token;
 import tokens.TokenType;
+import vmWrtier.symboleTable.SymboleTable;
 
 public class ClassVarDec_C extends JackCommand{
     private ClassVarDec parent;
@@ -185,6 +186,16 @@ public class ClassVarDec_C extends JackCommand{
         return type;
     }
 
+    public String generateVMCode()
+    {
+        String varType = this.type.getBody();
+        String varKind = this.getVariableScopeTokenBodyString();
+        for(IdentifierToken varName:this.variablesNames)
+        {
+            SymboleTable.addVAr(varName.getBody(), varType, varKind);
+        }
+        return "";
+    }
     public String getVariableScopeTokenBodyString() {
         return variableScopeToken.getBody();
     }

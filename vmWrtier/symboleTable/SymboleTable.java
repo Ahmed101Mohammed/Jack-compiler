@@ -11,9 +11,10 @@ public class SymboleTable {
     private static int localOrder = -1;
     private static String className;
 
-    public static void resetClassLevelSymboles(String className)
+    public static void resetClassLevelSymboles(String className_)
     {
-        className = className;
+        className = className_;
+        System.out.println("ClassName Changed To: " + className);
         classLevel.clear();
         staticOrder = -1;
         fieldOrder = -1;

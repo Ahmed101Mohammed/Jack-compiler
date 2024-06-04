@@ -80,6 +80,6 @@ public class SubRoutineBody extends JackCommand
         this.varDec.generateVMCode();
         String vmCode = this.statement.generateVMCode();
 
-        return null;
+        return vmCode;
     }
 }

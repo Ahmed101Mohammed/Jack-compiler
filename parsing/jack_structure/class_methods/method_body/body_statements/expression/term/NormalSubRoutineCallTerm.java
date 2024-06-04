@@ -146,12 +146,19 @@ public class NormalSubRoutineCallTerm implements IsubRoutineCallTerm
     @Override
     public String generateVMCode() {
         String vmCode = "";
+        String subRoutineKind = SubRoutineDec_C.subRoutinesKinds.get(this.subRoutineName.getBody());
+        int argumentsNumber = this.expressionList.size();
+        if(subRoutineKind != null)
+        {
+            vmCode += "push pointer 0\n";
+            argumentsNumber += 1;
+        }
         for(Expression exp:this.expressionList)
         {
             vmCode += exp.generateVMCode();
         }
 
-        vmCode += "call " + SymboleTable.getClassName() + "." + this.subRoutineName.getBody() + " " + this.expressionList.size() + "\n";
+        vmCode += "call " + SymboleTable.getClassName() + "." + this.subRoutineName.getBody() + " " + argumentsNumber + "\n";
         return vmCode;
     }    
 }

@@ -1,5 +1,7 @@
 package parsing.jack_structure.class_methods;
 
+import java.util.HashMap;
+
 import helperClasses.Error;
 import parsing.CompilationEngine;
 import parsing.JackCommand;
@@ -23,6 +25,7 @@ public class SubRoutineDec_C extends JackCommand
     private SubRoutineBody subRoutineBody;
     // Other members
     static public SubRoutineDec subRoutineDecParent;
+    static public HashMap<String,String> subRoutinesKinds = new HashMap<>();
     private boolean isCompletedStructure = false;
 
     public SubRoutineDec_C(SubRoutineDec src)
@@ -33,6 +36,7 @@ public class SubRoutineDec_C extends JackCommand
         {
             this.type = new SubRoutineType();
             this.getSubRoutineName();
+            subRoutinesKinds.put(this.subRoutineName.getBody(), this.subRoutineKindToken.getBody());
             this.getLeftParenthes();
             this.parameterList = new ParameterList();
             this.getRightParenthes();
@@ -168,7 +172,7 @@ public class SubRoutineDec_C extends JackCommand
         this.parameterList.generateVMCode(this.subRoutineKind);
         String bodyCode = this.subRoutineBody.generateVMCode();
         String vmCode = "function " + SymboleTable.getClassName() + "." + this.subRoutineName.getBody() + 
-                        " " + SymboleTable.getLocalOrder() + "\n";
+                        " " + (SymboleTable.getLocalOrder() + 1) + "\n";
         vmCode += this.generateIntroCodeDependOnSubRoutineKind();
         vmCode += bodyCode;
         return vmCode;
@@ -179,7 +183,7 @@ public class SubRoutineDec_C extends JackCommand
         String vmCode = "";
         if(this.subRoutineKind == SubRoutineKind.Constructor)
         {
-            vmCode += "push constant" + SymboleTable.getFieldOrder() + "\n"
+            vmCode += "push constant " + (SymboleTable.getFieldOrder() + 1)+ "\n"
                     + "call Memory.alloc 1\n" + "pop pointer 0\n";
         }
         else if(this.subRoutineKind == SubRoutineKind.Method)

@@ -93,8 +93,8 @@ public class ArrayIndexingTerm implements Iterm
         vmCode += "push " + var.getSegment() + " " + var.getOrder() + "\n";
         vmCode += this.expression.generateVMCode();
         vmCode += "add\n";
-        vmCode += "pop pointer 1";
-        vmCode += "push that 0";
+        vmCode += "pop pointer 1\n";
+        vmCode += "push that 0\n";
         return vmCode;
     }    
 }

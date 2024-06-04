@@ -13,7 +13,7 @@ public class KeywordConstantTerm implements Iterm
     private HashMap<String, String> keywordConstantToVM = new HashMap<>() {{
         put("true", "push constant 1\nneg\n");
         put("false", "push constant 0\n");
-        put("null", "push constant 0\n]");
+        put("null", "push constant 0\n");
         put("this", "push pointer 0\n");
     }};
 

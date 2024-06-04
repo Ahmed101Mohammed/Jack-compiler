@@ -32,7 +32,7 @@ public class Symbole {
 
     public String getSegment()
     {
-        if(this.kind == "field")
+        if(this.kind.equals("field"))
         {
             return "this";
         }

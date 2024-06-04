@@ -14,8 +14,8 @@ public class Op
     private HashMap<String, String> opToVM = new HashMap<>() {{
         put("+", "add\n");
         put("-", "sub\n");
-        put("*", "Math.multiply\n");
-        put("/", "Math.divide\n");
+        put("*", "call Math.multiply 2\n");
+        put("/", "call Math.divide 2\n");
         put("&", "and\n");
         put("|", "or\n");
         put("=", "eq\n");

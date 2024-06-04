@@ -36,13 +36,13 @@ public class StringConstantTerm implements Iterm
     {
         String stringConstant = this.stringConstant.getBody();
         int stringConstantLength = stringConstant.length();
-        String vmCode = "push constant " + stringConstantLength + "\n" +  "String.new 1\n";
+        String vmCode = "push constant " + stringConstantLength + "\n" +  "call String.new 1\n";
         for(char c:stringConstant.toCharArray())
         {
             int intC = (int) c;
-            vmCode += "push constant " + intC;
-            vmCode += "call String.appendChar 1";
+            vmCode += "push constant " + intC + "\n";
+            vmCode += "call String.appendChar 2\n";
         }  
-        return null;
+        return vmCode;
     }    
 }

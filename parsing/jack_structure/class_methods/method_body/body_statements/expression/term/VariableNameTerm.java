@@ -47,7 +47,7 @@ public class VariableNameTerm implements Iterm
     public String generateVMCode() {
         String varName = this.varName.getBody();
         Symbole varInfo = SymboleTable.getVar(varName);
-        String vmCode = "push " + varInfo.getSegment() + " " + varInfo.getOrder();
+        String vmCode = "push " + varInfo.getSegment() + " " + varInfo.getOrder() + "\n";
         return vmCode;
     }    
 }

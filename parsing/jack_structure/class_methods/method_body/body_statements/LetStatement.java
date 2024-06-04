@@ -181,7 +181,7 @@ public class LetStatement implements IStatement
             vmCode += "add\n";
             vmCode += vmCodeForExpression;
             vmCode += "pop temp 0\n";
-            vmCode += "push pointer 1\n";
+            vmCode += "pop pointer 1\n";
             vmCode += "push temp 0\n";
             vmCode += "pop that 0\n"; 
         }

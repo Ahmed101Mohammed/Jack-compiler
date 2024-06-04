@@ -189,7 +189,7 @@ public class MethodSubRoutineCallTerm implements IsubRoutineCallTerm
         Symbole var = SymboleTable.getVar(this.caller.getBody());
         if(var != null)
         {
-            vmCode += "push " + var.getSegment() + " " + var.getOrder();
+            vmCode += "push " + var.getSegment() + " " + var.getOrder() + "\n";
             methodClassName = var.getType();
             argumentsNumber += 1;
         }

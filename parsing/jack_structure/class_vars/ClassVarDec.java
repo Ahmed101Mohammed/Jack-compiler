@@ -70,12 +70,7 @@ public class ClassVarDec extends JackCommand{
     {
         for(ClassVarDec_C var: this.vars)
         {
-            String varType = var.getName();
-            String varKind = var.getVariableScopeTokenBodyString();
-            for (IdentifierToken varName:var.variablesNames)
-            {
-                SymboleTable.addVAr(varName.getBody(), varType, varKind);
-            }
+            var.generateVMCode();
         }
         return "";
     }
