@@ -32,7 +32,8 @@ public class IntegerConstantTerm implements Iterm
     }
 
     @Override
-    public void generateVMCode() {
-        // TODO Auto-generated method stub
+    public String generateVMCode() {
+        String vmCode = "push constant " + integerConstant.getBody() + "\n";
+        return vmCode;
     }    
 }

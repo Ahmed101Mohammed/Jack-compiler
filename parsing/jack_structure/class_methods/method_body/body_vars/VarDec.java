@@ -67,4 +67,14 @@ public class VarDec extends JackCommand
     public ArrayList<VarDec_C> getVars() {
         return vars;
     }
+
+    @Override
+    public String generateVMCode() 
+    {
+        for(VarDec_C var:this.vars)
+        {
+            var.generateVMCode();
+        }    
+        return null;
+    }
 }

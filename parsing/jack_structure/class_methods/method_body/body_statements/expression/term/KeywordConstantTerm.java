@@ -1,5 +1,7 @@
 package parsing.jack_structure.class_methods.method_body.body_statements.expression.term;
 
+import java.util.HashMap;
+
 import parsing.CompilationEngine;
 import tokens.KeywordToken;
 import tokens.Token;
@@ -8,6 +10,12 @@ import tokens.TokenType;
 public class KeywordConstantTerm implements Iterm 
 {
     private KeywordToken keywordConstant;
+    private HashMap<String, String> keywordConstantToVM = new HashMap<>() {{
+        put("true", "push constant 1\nneg\n");
+        put("false", "push constant 0\n");
+        put("null", "push constant 0\n]");
+        put("this", "push pointer 0\n");
+    }};
 
     public KeywordConstantTerm()
     {
@@ -36,8 +44,10 @@ public class KeywordConstantTerm implements Iterm
         }
     }
     @Override
-    public void generateVMCode() {
-        // TODO Auto-generated method stub
+    public String generateVMCode() {
+        String keywordConstanString = keywordConstant.getBody();
+        String vmCode = keywordConstantToVM.get(keywordConstanString);
+        return vmCode;
         
     }    
 }

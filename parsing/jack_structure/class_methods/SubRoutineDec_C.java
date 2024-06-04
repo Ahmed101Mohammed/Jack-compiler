@@ -9,6 +9,7 @@ import tokens.IdentifierToken;
 import tokens.SymbolToken;
 import tokens.Token;
 import tokens.TokenType;
+import vmWrtier.symboleTable.SymboleTable;
 
 public class SubRoutineDec_C extends JackCommand
 {
@@ -159,5 +160,34 @@ public class SubRoutineDec_C extends JackCommand
     public String getPureName()
     {
         return this.subRoutineName.getBody();
+    }
+
+    public String generateVMCode()
+    {
+        SymboleTable.resetSubRoutineLevelSymboles();
+        this.parameterList.generateVMCode(this.subRoutineKind);
+        String bodyCode = this.subRoutineBody.generateVMCode();
+        String vmCode = "function " + SymboleTable.getClassName() + "." + this.subRoutineName.getBody() + 
+                        " " + SymboleTable.getLocalOrder() + "\n";
+        vmCode += this.generateIntroCodeDependOnSubRoutineKind();
+        vmCode += bodyCode;
+        return vmCode;
+    }
+
+    public String generateIntroCodeDependOnSubRoutineKind()
+    {
+        String vmCode = "";
+        if(this.subRoutineKind == SubRoutineKind.Constructor)
+        {
+            vmCode += "push constant" + SymboleTable.getFieldOrder() + "\n"
+                    + "call Memory.alloc 1\n" + "pop pointer 0\n";
+        }
+        else if(this.subRoutineKind == SubRoutineKind.Method)
+        {
+
+            vmCode += "push argument 0\n" + "pop pointer 0\n";
+        }
+
+        return vmCode;
     }
 }

@@ -29,4 +29,14 @@ public class Symbole {
     public int getOrder() {
         return order;
     }
+
+    public String getSegment()
+    {
+        if(this.kind == "field")
+        {
+            return "this";
+        }
+
+        return this.kind;
+    }
 }

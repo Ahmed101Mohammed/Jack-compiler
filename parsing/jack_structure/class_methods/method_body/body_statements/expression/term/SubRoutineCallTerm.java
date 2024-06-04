@@ -46,8 +46,9 @@ public class SubRoutineCallTerm implements Iterm
     }
 
     @Override
-    public void generateVMCode() {
-        // TODO Auto-generated method stub
+    public String generateVMCode() {
+        String vmCode = this.subRoutineCallTerm.generateVMCode();
+        return vmCode;
         
     }    
 }

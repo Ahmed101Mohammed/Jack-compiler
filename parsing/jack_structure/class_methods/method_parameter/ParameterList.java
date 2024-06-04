@@ -3,9 +3,11 @@ package parsing.jack_structure.class_methods.method_parameter;
 import java.util.ArrayList;
 
 import parsing.CompilationEngine;
+import parsing.jack_structure.class_methods.SubRoutineKind;
 import tokens.IdentifierToken;
 import tokens.Token;
 import tokens.TokenType;
+import vmWrtier.symboleTable.SymboleTable;
 
 public class ParameterList {
     public ArrayList<Parameter_C> parameters = new ArrayList<>();
@@ -86,5 +88,20 @@ public class ParameterList {
             return false;
         }
         return true;
+    }
+
+    public String generateVMCode(SubRoutineKind kind)
+    {
+        if(kind == SubRoutineKind.Method)
+        {
+            SymboleTable.addVAr("this", SymboleTable.getClassName(), "argument");
+        }
+
+        for(Parameter_C parameter: this.parameters)
+        {
+            parameter.generateVMCode();
+        }
+
+        return "";
     }
 }

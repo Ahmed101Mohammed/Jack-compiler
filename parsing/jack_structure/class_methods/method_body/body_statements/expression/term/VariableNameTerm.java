@@ -7,6 +7,8 @@ import parsing.jack_structure.class_methods.method_body.body_statements.Statemen
 import tokens.IdentifierToken;
 import tokens.Token;
 import tokens.TokenType;
+import vmWrtier.symboleTable.Symbole;
+import vmWrtier.symboleTable.SymboleTable;
 
 public class VariableNameTerm implements Iterm
 {
@@ -42,8 +44,10 @@ public class VariableNameTerm implements Iterm
     }
 
     @Override
-    public void generateVMCode() {
-        // TODO Auto-generated method stub
-        
+    public String generateVMCode() {
+        String varName = this.varName.getBody();
+        Symbole varInfo = SymboleTable.getVar(varName);
+        String vmCode = "push " + varInfo.getSegment() + " " + varInfo.getOrder();
+        return vmCode;
     }    
 }

@@ -84,4 +84,9 @@ public class Term
         }
         
     }
+
+    public String generateVMCode()
+    {
+        return this.term.generateVMCode();
+    }
 }

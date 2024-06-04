@@ -82,7 +82,17 @@ public class ReturnStatement implements IStatement
     }
     @Override
     public String generateVMCode() {
-        // TODO Auto-generated method stub
-        return null;
+        String vmCode = "";
+        if(this.expression != null)
+        {
+            vmCode += this.expression.generateVMCode();
+        }
+        else
+        {
+            vmCode += "push constant 0\n";
+        }
+
+        vmCode += "return";
+        return vmCode;
     }    
 }

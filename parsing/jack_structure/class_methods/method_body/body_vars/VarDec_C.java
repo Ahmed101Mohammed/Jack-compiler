@@ -13,6 +13,7 @@ import tokens.KeywordToken;
 import tokens.SymbolToken;
 import tokens.Token;
 import tokens.TokenType;
+import vmWrtier.symboleTable.SymboleTable;
 
 public class VarDec_C extends JackCommand
 {
@@ -154,6 +155,16 @@ public class VarDec_C extends JackCommand
     public parsing.jack_structure.Type getType()
     {
         return this.type;
+    }
+
+    public String generateVMCode()
+    {
+        String typeName = this.type.getBody();
+        for(IdentifierToken var:this.varsNames)
+        {
+            SymboleTable.addVAr(var.getBody(), typeName, "local");
+        }
+        return null;
     }
     
 }

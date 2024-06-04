@@ -9,9 +9,11 @@ public class SymboleTable {
     private static int fieldOrder = -1;
     private static int argumentOrder = -1;
     private static int localOrder = -1;
+    private static String className;
 
-    public static void resetClassLevelSymboles()
+    public static void resetClassLevelSymboles(String className)
     {
+        className = className;
         classLevel.clear();
         staticOrder = -1;
         fieldOrder = -1;
@@ -38,10 +40,6 @@ public class SymboleTable {
         if(var == null)
         {
             var = classLevel.get(varName);
-            if(var == null)
-            {
-                System.out.println("Fail to get the variable, may it does not declered.");
-            }
         }
         
         return var;
@@ -89,4 +87,15 @@ public class SymboleTable {
         return -1;
     }
 
+    public static int getFieldOrder() {
+        return fieldOrder;
+    }
+
+    public static String getClassName() {
+        return className;
+    }
+
+    public static int getLocalOrder() {
+        return localOrder;
+    }
 }

@@ -73,5 +73,13 @@ public class SubRoutineBody extends JackCommand
                                         token.getPosition()));
             System.out.println("Fail: Check right curly bracket.");
         }
-    }   
+    }
+    
+    public String generateVMCode()
+    {
+        this.varDec.generateVMCode();
+        String vmCode = this.statement.generateVMCode();
+
+        return null;
+    }
 }

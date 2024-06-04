@@ -68,7 +68,8 @@ public class DoStatement implements IStatement
     }
     @Override
     public String generateVMCode() {
-        // TODO Auto-generated method stub
-        return null;
+        String vmCode = this.subRoutineCall.generateVMCode();
+        vmCode += "pop temp 0\n";
+        return vmCode;
     }    
 }

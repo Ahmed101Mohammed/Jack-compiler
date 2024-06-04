@@ -9,6 +9,8 @@ import tokens.IdentifierToken;
 import tokens.SymbolToken;
 import tokens.Token;
 import tokens.TokenType;
+import vmWrtier.symboleTable.Symbole;
+import vmWrtier.symboleTable.SymboleTable;
 
 public class ArrayIndexingTerm implements Iterm
 {
@@ -85,8 +87,14 @@ public class ArrayIndexingTerm implements Iterm
     }
 
     @Override
-    public void generateVMCode() {
-        // TODO Auto-generated method stub
-        
+    public String generateVMCode() {
+        String vmCode = "";
+        Symbole var = SymboleTable.getVar(this.varName.getBody());
+        vmCode += "push " + var.getSegment() + " " + var.getOrder() + "\n";
+        vmCode += this.expression.generateVMCode();
+        vmCode += "add\n";
+        vmCode += "pop pointer 1";
+        vmCode += "push that 0";
+        return vmCode;
     }    
 }

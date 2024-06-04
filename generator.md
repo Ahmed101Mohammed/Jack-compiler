@@ -1,4 +1,4 @@
-===== 5.1 =====
+===== 5.1 ===== {DONE}
 - Each jack file compiled alone.
 - Compiling of each class can devied into:
     - Compiling all variable declared in the class with each other lonly.
@@ -99,7 +99,7 @@ x       *
 #Note: the expression between parantheses () should have periority to fully done (may be compiling) before the rest of expression.
 #Note: for you, you have anothe compilert architechture so I think it's good to understand this, but create what you find easier and faster.
 ____________________________________________________________________
-===== 5.4: Handling flow of control =====
+===== 5.4: Handling flow of control ===== {DONE}
 - When we need to control flow in Jack (if/while), we tread with flow control in VM (goto, if-goto, label).
 - Compiling if statement:
 - If statement structure in jack:
@@ -187,7 +187,7 @@ ____________________________________________________________________
         field int x, y;
         static int pointCount;
     */
-    #In this phase of variable decleration there no VM code, it's just building Symbols table. 
+    # In this phase of variable decleration there no VM code, it's just building Symbols table. 
 
     // constructor Point.new(int ax, int ay)
     push 2 // Note the 2 is the number of the field variables in the class.
@@ -215,7 +215,7 @@ ____________________________________________________________________
     return // Note to return any value in function in VM, we push the returned value first and wrtie command: 'return'.
 
 ____________________________________________________________________
-===== 5.7: Handling objects more (Manipulation) =====
+===== 5.7: Handling objects more (Manipulation) ===== {Done}
 We mean with word 'manipulation': how the object treat with it's methods.
 - Now we have 2 part of manipulation:
 - 1st: Caller side, example: do p1.distance(p2);
@@ -291,7 +291,7 @@ class Point {
                     pop temp 0 // we do that because the we need to get red of the returned valuo of the method part.
                                // so the returned value in call stack will removed and move to the first register of temp segment.
 ____________________________________________________________________
-===== 5.8: Handling arrays =====
+===== 5.8: Handling arrays ===== {Done}
 - Handling arrays contain 2 parts:
 1st: Handling arrays from constructor prespective:
     - This is Jack code:
@@ -302,7 +302,7 @@ ____________________________________________________________________
         No cade here just put the decleration to the symbol table.
         // let arr = Array.new(4)
         Handling like you handle any object.
-        The os task here is to reserve sequence of free number of regesters in the memory. // #Note: this is not your task in the calling process, it should be the tast of the body of the constructor fanction of Array class.
+        The os task here is to reserve sequence of free number of regesters in the memory. // #Note: this is not your task in the calling process, it should be the task of the body of the constructor fanction of Array class.
         The regesters number is equal to the resolt of the expression in the new method of array, her equal 4, so the os should reserve 4 regesters.
 2nd: Handling arrays form manipulation prespective:
     - This is Jack code:
@@ -312,7 +312,7 @@ ____________________________________________________________________
         push arr // not here you push the location that you get when you call the constructor
         push 2
         add // here we add 2 to the address to determine the index register address
-        pop pointer 0 // assign that to the new address
+        pop pointer 1 // assign that to the new address
         push 17
         pop that 0 // also will be 0, because in each time we assign That to the specific indexing address.
     - If we write the code in abstract way and compile it to VM, will be like:
@@ -320,7 +320,7 @@ ____________________________________________________________________
         push arr
         push exp1
         add
-        pop pointer 0
+        pop pointer 1
         push exp2
         pop that 0
         
@@ -350,21 +350,20 @@ ____________________________________________________________________
 ____________________________________________________________________
 ===== 5.9: Standard Mapping over the VM =====
 - Files and subroutines Mapping
-- Jack file: Main.jack conveted to Main.vm when compiling.
-- When compiling subroutines of class, we convert them to: function ClassName.subroutineName
-- Whan compiling each subroutine arguments number in jack language will be the same in VM except subroutines with 'method' constructor
-    it's arguments in VM will be k+1 (k: is the number of argument of the method in jack).
+    - Jack file: Main.jack conveted to Main.vm when compiling.
+    - When compiling subroutines of class, we convert them to: function ClassName.subroutineName
+    - Whan compiling each subroutine arguments number in jack language will be the same in VM except subroutines with 'method' constructor it's arguments in VM will be k+1 (k: is the number of argument of the method in jack).
 - Variable Mapping:
-- The local (subroutine vars) variables maped on VM segment local.
-- The parameter variables mapped on VM segment argument.
-- The static varibles mapped on VM segment static
-- The field variables of the current object are accesses as following:
-    - assumption: we set the this key word to the object content address by pointer 0
-    - the i-th field of this object is mapped on 'this i'.
+    - The local (subroutine vars) variables maped on VM segment local.
+    - The parameter variables mapped on VM segment argument.
+    - The static varibles mapped on VM segment static
+    - The field variables of the current object are accesses as following:
+        - assumption: we set the this key word to the object content address by pointer 0
+        - the i-th field of this object is mapped on 'this i'.
 - Arrays Mapping:
-Access to any array entry arr[i] is realized as follows:
-- 1st set pointer 1 to the enrty's address (arr + i).
-- access the entry accessing 'this 0'
+    Access to any array entry arr[i] is realized as follows:
+    - 1st set pointer 1 to the enrty's address (arr + i).
+    - access the entry accessing 'this 0'
 - Compiling subroutines
 ![Compiling subroutines image from the lecture](./images/compiling_subroutines.bmp)
 - Compiling subroutines call

@@ -1,5 +1,7 @@
 package parsing.jack_structure.class_methods.method_parameter;
 
+import java.lang.foreign.SymbolLookup;
+
 import helperClasses.Error;
 import parsing.CompilationEngine;
 import parsing.JackCommand;
@@ -7,6 +9,7 @@ import parsing.jack_structure.Type;
 import tokens.IdentifierToken;
 import tokens.Token;
 import tokens.TokenType;
+import vmWrtier.symboleTable.SymboleTable;
 
 public class Parameter_C extends JackCommand
 {
@@ -29,7 +32,7 @@ public class Parameter_C extends JackCommand
         return xmlCode;
     }
 
-    private void getName()
+    public String getName()
     {
         Token token = CompilationEngine.advance();
         if(token.getType() == TokenType.Identifier && !isDublicatedName(token))
@@ -45,6 +48,7 @@ public class Parameter_C extends JackCommand
                                 token.getPosition()));
             System.out.println("Faile: Check parameter name.");
         }
+        return null;
     }
 
     private boolean isDublicatedName(Token token)
@@ -68,5 +72,11 @@ public class Parameter_C extends JackCommand
     public boolean isNeededToReviewType()
     {
         return (this.type.getTokenType() == TokenType.Identifier);
+    }
+
+    @Override
+    public String generateVMCode() {
+        SymboleTable.addVAr(getPureName(), this.type.getBody(), "argument");
+        return "";
     }
 }

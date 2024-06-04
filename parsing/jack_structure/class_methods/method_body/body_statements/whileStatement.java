@@ -18,9 +18,12 @@ public class whileStatement implements IStatement
     private SymbolToken leftCurlyBraket;
     private Statements statements;
     private SymbolToken rightCurlyBraket;
-
+    private static int whiles = 0;
+    private int myOrder;
     public whileStatement()
     {
+        this.whiles += 1;
+        this.myOrder = this.whiles;
         this.getWhileKeyword();
         this.getLeftPananthes();
         this.expression = new Expression();
@@ -145,7 +148,12 @@ public class whileStatement implements IStatement
 
     @Override
     public String generateVMCode() {
-        // TODO Auto-generated method stub
-        return null;
+        String vmCode = "label WHILE_START_L" + this.myOrder + "\n";
+        vmCode += this.expression.generateVMCode();
+        vmCode += "not\n" + "if-goto WHILE_END_L" + this.myOrder + "\n";
+        vmCode += this.statements.generateVMCode();
+        vmCode += "goto WHILE_START_L" + this.myOrder + "\n";
+        vmCode += "label WHILE_END_L" + this.myOrder;
+        return vmCode;
     }    
 }

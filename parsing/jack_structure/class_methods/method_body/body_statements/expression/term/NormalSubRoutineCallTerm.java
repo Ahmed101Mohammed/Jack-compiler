@@ -14,6 +14,7 @@ import tokens.IdentifierToken;
 import tokens.SymbolToken;
 import tokens.Token;
 import tokens.TokenType;
+import vmWrtier.symboleTable.SymboleTable;
 
 public class NormalSubRoutineCallTerm implements IsubRoutineCallTerm
 {
@@ -144,7 +145,13 @@ public class NormalSubRoutineCallTerm implements IsubRoutineCallTerm
 
     @Override
     public String generateVMCode() {
-        // TODO Auto-generated method stub
-        return null;
+        String vmCode = "";
+        for(Expression exp:this.expressionList)
+        {
+            vmCode += exp.generateVMCode();
+        }
+
+        vmCode += "call " + SymboleTable.getClassName() + "." + this.subRoutineName.getBody() + " " + this.expressionList.size() + "\n";
+        return vmCode;
     }    
 }

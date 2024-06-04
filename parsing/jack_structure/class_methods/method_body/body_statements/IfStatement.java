@@ -22,8 +22,14 @@ public class IfStatement implements IStatement
     private Statements statements_;
     private SymbolToken rightCurlyBraket_;
 
+    // calculator:
+    private static int ifs = 0;
+    private int myOrder;
     public IfStatement()
     {
+        ifs += 1;
+        this.myOrder = ifs;
+
         this.getIfKeyword();
         this.getLeftParnathes();
         this.expression = new Expression();
@@ -225,8 +231,18 @@ public class IfStatement implements IStatement
 
     @Override
     public String generateVMCode() {
-        // TODO Auto-generated method stub
-        return null;
+        String vmCode = this.expression.generateVMCode();
+        vmCode += "not\n" + "if-goto IF_ELSE_L" + this.myOrder +"\n";
+        vmCode += this.statements.generateVMCode();
+        vmCode += "goto IF_END_L" + this.myOrder + "\n";
+        vmCode += "label " + "IF_ELSE_L" + this.myOrder +"\n";
+        if(this.elseKeyword != null)
+        {
+            vmCode += this.statements_.generateVMCode();
+        }
+        vmCode += "label " + "IF_END_L" + this.myOrder + "\n";
+
+        return vmCode;
     }
 }
 

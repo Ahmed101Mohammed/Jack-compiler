@@ -60,4 +60,16 @@ public class SubRoutineDec extends JackCommand
         return subRutines;
     }
 
+    public String generateVMCode()
+    {
+        String vmCode = "";
+
+        for(SubRoutineDec_C subRoutine:this.subRutines)
+        {
+            vmCode += subRoutine.generateVMCode();
+        }
+
+        return vmCode;
+    }
+
 }

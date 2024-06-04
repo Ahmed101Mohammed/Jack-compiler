@@ -5,6 +5,7 @@ import java.util.Scanner;
 import parsing.CompilationEngine;
 import parsing.JackCommand;
 import tokens.Token;
+import vmWrtier.VMWriter;
 
 class JackAnalyzer
 {
@@ -19,6 +20,18 @@ class JackAnalyzer
             printErrors();
         }
         ArrayList<JackCommand> commands = parseListOfTokenizedFiles(filesTokenized);
+        generateVMCodeOfJackPrograms(commands);
+    }
+
+    public static void generateVMCodeOfJackPrograms(ArrayList<JackCommand> programs)
+    {
+        System.out.println("Start: generating VMCode...");
+        for(JackCommand program:programs)
+        {
+            System.out.println("=> Program working on now is: " + program.getName());
+            new VMWriter(relativeProjectRoot, program);
+        }
+        System.out.println("End: generating VMCode...");
     }
 
     public static ArrayList<JackCommand> parseListOfTokenizedFiles(ArrayList<JackTokenizer> tokenizedFiles)

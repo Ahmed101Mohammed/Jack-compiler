@@ -32,8 +32,17 @@ public class StringConstantTerm implements Iterm
         }
     }
     @Override
-    public void generateVMCode() {
-        // TODO Auto-generated method stub
-        
+    public String generateVMCode() 
+    {
+        String stringConstant = this.stringConstant.getBody();
+        int stringConstantLength = stringConstant.length();
+        String vmCode = "push constant " + stringConstantLength + "\n" +  "String.new 1\n";
+        for(char c:stringConstant.toCharArray())
+        {
+            int intC = (int) c;
+            vmCode += "push constant " + intC;
+            vmCode += "call String.appendChar 1";
+        }  
+        return null;
     }    
 }

@@ -51,5 +51,15 @@ public class Statements extends JackCommand
         }
         return false;
     }
+
+    public String generateVMCode()
+    {
+        String vmCode = "";
+        for(Statement_C statement:this.allStatements)
+        {
+            vmCode += statement.generateVMCode();
+        }
+        return vmCode;
+    }
     
 }

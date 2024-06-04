@@ -10,6 +10,8 @@ import tokens.KeywordToken;
 import tokens.SymbolToken;
 import tokens.Token;
 import tokens.TokenType;
+import vmWrtier.symboleTable.Symbole;
+import vmWrtier.symboleTable.SymboleTable;
 
 public class LetStatement implements IStatement
 {
@@ -164,7 +166,25 @@ public class LetStatement implements IStatement
 
     @Override
     public String generateVMCode() {
-        // TODO Auto-generated method stub
-        return null;
+        String vmCodeForExpression = this.expression.generateVMCode();
+        Symbole var = SymboleTable.getVar(this.varName.getBody());
+        String vmCode = "";
+        if(this.leftSquareBracket == null)
+        {
+            vmCode += this.expression.generateVMCode();
+            vmCode += "pop " + var.getSegment() + " " + var.getOrder() + "\n";
+        }
+        else
+        {
+            vmCode += "push " + var.getSegment() + " " + var.getOrder() + "\n";
+            vmCode += this.indexingExpression.generateVMCode();
+            vmCode += "add\n";
+            vmCode += vmCodeForExpression;
+            vmCode += "pop temp 0\n";
+            vmCode += "push pointer 1\n";
+            vmCode += "push temp 0\n";
+            vmCode += "pop that 0\n"; 
+        }
+        return vmCode;
     }    
 }

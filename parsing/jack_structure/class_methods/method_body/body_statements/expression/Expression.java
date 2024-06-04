@@ -50,4 +50,17 @@ public class Expression
         xmlCode += "</expression>";
         return xmlCode;
     }
+
+    public String generateVMCode()
+    {
+        String vmCode = this.terms.get(0).generateVMCode();
+        int opPointer = 0;
+        for(int termIndex = 1; termIndex < this.terms.size(); termIndex++)
+        {
+            vmCode += this.terms.get(termIndex).generateVMCode();
+            vmCode += this.ops.get(opPointer).generateVMCode();
+            opPointer += 1;
+        }
+        return vmCode;
+    }
 }

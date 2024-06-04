@@ -61,8 +61,7 @@ public class PeriorityTerm implements Iterm
     }
 
     @Override
-    public void generateVMCode() {
-        // TODO Auto-generated method stub
-        
+    public String generateVMCode() {
+        return expression.generateVMCode();
     }    
 }

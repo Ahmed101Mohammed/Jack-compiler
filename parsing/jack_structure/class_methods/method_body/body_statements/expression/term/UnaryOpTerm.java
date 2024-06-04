@@ -41,8 +41,17 @@ public class UnaryOpTerm implements Iterm
         }
     }
     @Override
-    public void generateVMCode() {
-        // TODO Auto-generated method stub
-        
+    public String generateVMCode() {
+        String vmCode = this.term.generateVMCode();
+        switch(this.unaryOperator.getBody())
+        {
+            case "-":
+                vmCode += "neg\n";
+                break;
+            case "~":
+                vmCode += "not\n";
+                break;
+        }
+        return vmCode;
     }    
 }
