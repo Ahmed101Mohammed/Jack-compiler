@@ -36,4 +36,8 @@ You can follow the following steps to compile your assembly code:
 > 2. Compiling the JackAnalyzer.java file, which should lead to compiling all dependencies files that the JackAnalyzer file needs.
 > 3. Run the project, as a normal terminal java app, and the entry point is **JackAnalyzer**.
 
+## How to use the compiler:
+> 1. Just so you know – the program will ask you to input the path from the root of the compiler, to the target file, or folder.
+> 2. Finally, you will get the results with a separate file/s ending with the **vm** extension, these files will be next to the compiled files.
+> The results not only contain vm files, it also contain 2 **xml** files for each **jack** file, that contains the result of tokenizing and parsing phases.
 
