@@ -39,5 +39,8 @@ You can follow the following steps to compile your assembly code:
 ## How to use the compiler:
 > 1. Just so you know – the program will ask you to input the path from the root of the compiler, to the target file, or folder.
 > 2. Finally, you will get the results with a separate file/s ending with the **vm** extension, these files will be next to the compiled files.
-> The results not only contain vm files, it also contain 2 **xml** files for each **jack** file, that contains the result of tokenizing and parsing phases.
+> The results not only contain vm files, it also contain 2 **xml** files for each **jack** file, which contains the result of the tokenizing and parsing phases.
 
+## License:
+There is no famous specific license, but I give you all the ability to use this project for good reasons, and I will be thanked for sharing my GitHub account as a creator for this basic compiler.
+Thanks.
