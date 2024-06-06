@@ -22,5 +22,18 @@ I faced many challenges in this project, but the main one was building the parse
 #### What I learn from this challenge:
 The solution that I chose answered my questions, but in the same time is make me recognize some big costs that my solution lead to, although I chose it in the end.
 > The big cost was the memory, if you imagine that the compiler will build a real parsing tree in the memory, and your code is millions or billions of lines, this will lead to high memory and time costs, because the compiler will record each class and subroutines or statement as an object, to be more detectable, each word or symbol in your base code, will have an object in the memory represent it, so it's a big cost.
-> So another solution that you can follow: is to build the compiler in a more procedural way, I haven't tried this solution before, but I can expect, it maybe more challenging, and it's the recommentded solution in [Nand2Tetris course](https://www.coursera.org/learn/nand2tetris2/home/welcome).
+> So another solution that you can follow: is to build the compiler in a more procedural way, I haven't tried this solution before, but I can expect, it may be more challenging, and it's the recommended solution in [Nand2Tetris course](https://www.coursera.org/learn/nand2tetris2/home/welcome).
+
+## Instaling & Running
+### Install the project:
+To install the project you can open your terminal and enter this command:
+```
+git clone https://github.com/Ahmed101Mohammed/Jack-compiler.git
+```
+### Run the project:
+You can follow the following steps to compile your assembly code:
+> 1. Enter the project folder, after installing it.
+> 2. Compiling the JackAnalyzer.java file, which should lead to compiling all dependencies files that the JackAnalyzer file needs.
+> 3. Run the project, as a normal terminal java app, and the entry point is **JackAnalyzer**.
+
 
